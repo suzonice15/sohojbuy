@@ -6,7 +6,32 @@
 @endsection
 @section('mainContent')
 
-<section class="invoice">
+<style type="text/css">
+	@media print {
+  body * {
+    visibility: hidden;
+  }
+  #printInvoice, #printInvoice * {
+    visibility: visible;
+  }
+  #notPrint, #notPrint *{
+  	visibility: hidden;
+  }
+  #printInvoice {
+    /*position: absolute;*/
+    /*left: 0;*/
+    top: -100px;
+  }
+
+}
+
+table, th, td {
+  border: 1px solid #a8a5a5;
+}
+
+</style>
+
+<section class="invoice" id="printInvoice">
     <!-- title row -->
     <div class="row">
         <div class="col-xs-12">
@@ -28,7 +53,7 @@
 
                 Phone:01300884747<br>
                 Phone:01407011239<br>
-                Email: support@sujojbuy.com
+                Email: support@sohojbuy.com
             </address>
         </div>
         <!-- /.col -->
@@ -89,7 +114,7 @@
                         $product_ids[] = $product_id;
                         $product_code = 0;
                         $product_id_select = array_unique($product_ids);
-                        $products_sku = DB::table('product')->select('sku')->first();
+                        $products_sku = DB::table('product')->select('sku')->where('product_id',$product_id)->first();
                         $product_code = $products_sku->sku;
 
                         $totall = intval(preg_replace('/[^\d.]/', '', isset($item['subtotal']) ? $item['subtotal'] : null));
@@ -98,7 +123,7 @@
 
 
                         $product = single_product_information($product_id);
-                        $sku = $product->sku;
+
                         $name = $product->product_name;
                         $subtotal +=$item['subtotal']*$item['qty'];
                 ?>
@@ -163,9 +188,25 @@
         <!-- /.col -->
     </div>
     <!-- /.row -->
+    <hr style="color: black;">
+
+
+
+
+    <div id="notPrint" style="text-align: right;">
+        <button type="button"  class="btn btn-info" onclick="printPage()">Print</button>
+    </div>
 </section>
 
+<script>
+    
+function printPage() {
+  window.print();
 
+}
+
+
+</script>
 
 
 @endsection

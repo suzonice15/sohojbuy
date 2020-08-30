@@ -57,6 +57,28 @@ class CheckOutController extends Controller
 
 
 
+
+        //sotck reduce from product
+
+
+        $items = \Cart::getContent();
+        //Cart::clear();
+        foreach($items as $row) {
+
+            $product_id = $row->id;
+             $row->quantity;
+            $product_stock=DB::table('product')->select('product_stock')->where('product_id',$product_id)->first();
+            if($product_stock){
+               $stock['product_stock']= $product_stock->product_stock-$row->quantity;
+                $product_stock=DB::table('product')->where('product_id',$product_id)->update($stock);
+
+            }   
+
+        }
+
+
+
+
         // $get_link_id = $this->input->cookie('link_id', true);
         if ($get_cookies) {
 

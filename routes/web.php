@@ -112,6 +112,7 @@ Route::get('admin/order/{id}', 'admin\OrderController@edit');
 Route::get('/admin/order/delete/{id}', 'admin\OrderController@destroy');
 Route::get('admin/order/invoice-print/{id}', 'admin\OrderController@invoicePrint');
 Route::get('order/pagination', 'admin\OrderController@pagination');
+Route::get('order/pagination_by_search', 'admin\OrderController@pagination_by_search');
 Route::post('order/product/selection/change', 'admin\AjaxOrderControlller@productSelectionChange')->name('productSelectionChange');
 Route::post('order/product/selection', 'admin\AjaxOrderControlller@productSelection')->name('productSelection');
 
@@ -120,6 +121,7 @@ Route::post('order/product/selection', 'admin\AjaxOrderControlller@productSelect
 /**************************** Order report          **************************/
 
 Route::get('admin/report/order_report', 'admin\ReportController@order_report');
+Route::get('/admin/limited/product', 'admin\ReportController@limited_product');
 Route::post('admin/report/order_report', 'admin\ReportController@order_report_by_ajax');
 
 
@@ -181,11 +183,15 @@ Route::post('vendor-shop-urlcheck', 'VendorController@shopUrlCheck')->name('vend
 
 /****=============== customer font section    =====================  ******/
 
+Route::get('customer/orders', 'CustomerController@orders');
+Route::get('customer/points', 'CustomerController@points');
 Route::get('customer/login', 'CustomerController@login');
 Route::get('customer/form', 'CustomerController@sign_up_form');
 Route::post('customer/form', 'CustomerController@store');
 Route::get('customer/logout', 'CustomerController@logout');
 Route::post('customer/login', 'CustomerController@login_check');
+Route::get('/customer/dasboard', 'CustomerController@dashboard');
+Route::post('/customer/profile/update', 'CustomerController@profile_update');
 
 
 /****=============== vendor admin section    =====================  ******/
@@ -199,6 +205,9 @@ Route::post('/vendor/product/update/{id}', 'VendorController@update');
 Route::get('vendor/orders', 'VendorController@all_orders');
 
 
+Route::get('/all-products', 'HomeController@allProducts');
+Route::get('all_ajax_products', 'HomeController@ajaxAllProducts');
+
 Route::get('/ip', 'HomeController@ip');
 
 Route::get('/clear-cache', function() {
@@ -208,5 +217,7 @@ Route::get('/clear-cache', function() {
 });
 Route::get('/{id}', 'HomeController@product');
 Route::get('/{name}/{id}', 'HomeController@affiliate_check_controller');
+
+
 
 

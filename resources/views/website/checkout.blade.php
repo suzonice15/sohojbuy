@@ -1,23 +1,35 @@
 @extends('website.master')
 @section('mainContent')
 <?php
-$indhaka=get_option('shipping_charge_in_dhaka');
-$outdhaka=get_option('shipping_charge_out_of_dhaka');
-$delivery=$indhaka;
+$indhaka=0;
+$outdhaka=0;
 
                                             $items = \Cart::getContent();
-                                            //Cart::clear();
-    $count=0;
-                                            foreach($items as $row) {
 
-                                                ++$count;
-                                            }
 
-                                            if($count > 2){
-                                                $indhaka=0;
-                                                $outdhaka=0;
-                                                $delivery=$indhaka;
-                                            }
+foreach($items as $row) {
+
+$product_id=$row->id;
+
+
+   $delever_charge=DB::table('product')->select('delivery_in_dhaka','delivery_out_dhaka')->where('product_id',$product_id)->first();
+if($delever_charge){
+    if($delever_charge->delivery_in_dhaka){
+        $indhaka += $delever_charge->delivery_in_dhaka*$row->quantity;
+    }
+    if($delever_charge->delivery_out_dhaka){
+        $outdhaka += $delever_charge->delivery_out_dhaka*$row->quantity;
+    }
+
+
+
+}
+
+}
+$delivery=$indhaka;
+
+
+
 
         $customer_name='';
         $customer_phone='';

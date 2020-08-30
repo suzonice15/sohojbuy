@@ -5,30 +5,38 @@
 
             <td>{{ $order->order_id }}</td>
             <td>{{ $order->customer_name }}</td>
-            <td><span class="btn btn-info">{{ $order->customer_phone }}</span></td>
+            <td>{{ $order->customer_phone }}</td>
 
             <td><?php
 
                   $affilite=  DB::table('users_public')->select('id','name')->where('id',$order->user_id)->first();
+                  $order_from_affilite_panel=  DB::table('users_public')->select('id','name')->where('id',$order->order_from_affilite_id)->first();
                     if($affilite){
                         $affite_user='<a  class="btn btn-success" href='.$affilite->id.'>'.$affilite->name.'</a>';
-                    } else {
+                    } elseif($order_from_affilite_panel){
+
+                        $affite_user='<a  class="btn btn-success" href='.$order_from_affilite_panel->id.'>'.$order_from_affilite_panel->name.'</a>';
+
+                    }else {
 
                         $affite_user="<p class='btn btn-success' >Non Affilite</p>";
                     }
 
                 $order_items = unserialize($order->products);
-
+                $sku=0;
+                $name=0;
                 if(is_array($order_items['items'])) {
                     foreach ($order_items['items'] as $product_id => $item) {
                         $featured_image = isset($item['featured_image']) ? $item['featured_image'] : null;
 
                         $product = single_product_information($product_id);
+                    if($product){
                         $sku = $product->sku;
                         $name = $product->product_name;
+                    }
 
                         ?>
-<a  target="_blank" href="{{URL::to('/'.'/'.$name)}}">
+<a  target="_blank" href="{{url('/')}}/{{ $name }}">
 
 
     <span class="btn btn-info" style="height: 29px; width:150px;display: block;overflow: hidden" ><?=($item['name'])?></span>
@@ -60,12 +68,14 @@
             <td><?php
 
                 $order_items = unserialize($order->products);
-
+                $vendor_id=0;
                 if(is_array($order_items['items'])) {
                 foreach ($order_items['items'] as $product_id => $item) {
 
                 $product = single_product_information($product_id);
+                    if($product){
                 $vendor_id=$product->vendor_id;
+                    }
                 if($vendor_id==0){
                    $owner=" Sohojbuy Product";
                 } else {
@@ -79,14 +89,14 @@
 
                     ?>
 
-                    <span class="btn btn-success"><?php echo $owner; ?></span>
+                   <?php echo $owner; ?>
 
               <?php  }  else {
 
 
                 ?>
                 <a  target="_blank" href="{{URL::to('/admin/vendor/view'.'/'.$vendor_id)}}">
-                    <span class="btn btn-primary"><?php echo $vendor_result->vendor_f_name; ?></span>
+                     <?php echo $vendor_result->vendor_f_name; ?>
                 </a>
                 <br>
                 <?php } ?>
@@ -107,7 +117,7 @@
             </td>
 
 
-            <td>{{$order->created_by}}</td>
+
             <td><?php echo $affite_user ?></td>
             <td> @money($order->order_total)
                 </td>

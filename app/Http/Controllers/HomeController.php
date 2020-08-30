@@ -133,6 +133,29 @@ class HomeController extends Controller
 
         return view('website.category',$data);
      }
+    
+    
+    public  function allProducts(){
+
+
+        $data['products'] =DB::table('product')->select('discount_price','product_price','product_name','folder','feasured_image','sku','product_title','product.product_id')->where('product.status','=',1)->orderBy('product_id','DESC')->paginate(18);
+
+
+        return view('website.all_products',$data);
+    }
+
+    public  function ajaxAllProducts(Request $request){
+
+        if($request->ajax())
+        {
+
+            
+            $products =DB::table('product')->select('discount_price','product_price','product_name','folder','feasured_image','sku','product_title','product.product_id')->where('product.status','=',1)->orderBy('product_id','DESC')->paginate(18);
+            //  return view('website.category_ajax', compact('products'));
+            $view = view('website.all_product_by_ajax',compact('products'))->render();
+            return response()->json(['html'=>$view]);
+        }
+    }
     public  function  ajax_category(Request $request){
         if($request->ajax())
         {

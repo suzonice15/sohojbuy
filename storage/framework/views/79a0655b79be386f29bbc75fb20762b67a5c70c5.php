@@ -275,7 +275,7 @@
             {
 
                  $('body .count').text(data.result.count);
-                 $('body .value').text(data.result.total);
+                 $('.total-price .value').text(data.result.total);
             }
         })
 

@@ -161,7 +161,8 @@
                 <ul class="treeview-menu">
                     <li><a href=" {{ url('admin/report/order_report') }}"><i class="fa fa-circle-o"></i>Order Reports</a>
                     </li>
-                    <li><a href=" {{ url('admin/couriers') }}"><i class="fa fa-circle-o"></i>All Couriers List</a></li>
+                    <li><a href=" {{ url('admin/limited/product') }}"><i class="fa fa-circle-o"></i>Limited Product</a></li>
+                    <li><a href=" {{ url('admin/product/click') }}"><i class="fa fa-circle-o"></i>Product Click Product</a></li>
 
 
                 </ul>

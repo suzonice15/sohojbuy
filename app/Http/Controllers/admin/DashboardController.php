@@ -84,6 +84,9 @@ class DashboardController extends Controller
             $data['today_order_sum'] = DB::table('order_data')->where('order_date', $today)->sum('order_total');
             $data['products'] = DB::table('product')->count();
             $data['category'] = DB::table('category')->count();
+
+            $data['limited_products']= DB::table('product')->where('product_stock','=',0)->count();
+
             return view('layouts.dashboard', $data);
         }
     }

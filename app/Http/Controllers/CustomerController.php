@@ -172,11 +172,79 @@ class CustomerController extends Controller
 
 
 
+    public function dashboard(){
+
+        $data['user']=DB::table('users')->where('id',Session::get('customer_id'))->first();
+        if($data['user']){
+            return view('website.customer.profile',$data);
+
+        } else {
+         return  redirect('/customer/login');
+        }
+
+
+    }
+
+    public function orders(){
+
+        $data['orders']=DB::table('order_data')->where('customer_id',Session::get('customer_id'))->get();
+
+            return view('website.customer.orders',$data);
+
+
+
+
+    }
+
+    public function points(){
+
+        $data['points']=DB::table('user_point_history')->where('user_id',Session::get('customer_id'))->orderBy('user_point_history_id','desc')->get();
+
+        return view('website.customer.points',$data);
+
+
+
+
+    }
+
+
+
+    public function profile_update(Request $request){
+       $data['name']= $request->name;
+       $data['email']= $request->email;
+       $data['phone']= $request->phone;
+       $data['address']= $request->address;
+
+        $image = $request->file('user_picture');
+        if ($image) {
+
+            $image_name ="user". time() . '.' . $image->getClientOriginalExtension();
+
+            $destinationPath = public_path('/uploads/users');
+
+            $resize_image = Image::make($image->getRealPath());
+
+            $resize_image->resize(200, 200, function ($constraint) {
+
+            })->save($destinationPath . '/' . $image_name);
+
+
+            $data['picture'] = $image_name;
+        }
+
+
+        $result = DB::table('users')->where('id',Session::get('customer_id'))->update($data);
+        return redirect('customer/dasboard');
+    }
+
+
+
+
     public function logout()
     {
-        Session::put('id', '');
+        Session::put('customer_id', '');
         $url = URL::current();
-        return redirect('/vendor/login')->with('success', 'You are successfully Logout !')->with('current', $url);;
+        return redirect('/customer/login')->with('success', 'You are successfully Logout !')->with('current', $url);;
     }
 
 }

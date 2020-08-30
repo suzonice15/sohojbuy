@@ -109,6 +109,92 @@
                     </div>
                     </div>
 
+
+                    <?php
+
+
+
+
+                    $products = DB::table('product')->select('product.product_id', 'product_title', 'product_name', 'discount_price', 'product_price', 'folder', 'feasured_image', 'sku')->where('status','=',1)->orderBy('product.product_id','DESC')->paginate(10);
+
+
+                    ?>
+                    <section class="section featured-product wow ">
+                        <h3 class="section-title"><a
+                                    class="category_title_section" href="">Recent Products</a>
+                        </h3>
+                        <div class="owl-carousel home-owl-carousel custom-carousel owl-theme outer-top-xs">
+
+                            <?php
+
+
+                            if($products){
+                            foreach ($products as  $product){
+
+                            if ($product->discount_price) {
+                                $sell_price = $product->discount_price;
+                            } else {
+                                $sell_price = $product->product_price;
+                            }
+                            ?>
+                            <div class="item item-carousel">
+                                <div class="products">
+
+
+                                    <div class="product">
+                                        <div class="product-image">
+                                            <div class="image">
+                                                <a href="{{ url('/') }}/{{$product->product_name}}">
+                                                    <img
+                                                            src="{{ url('/public/uploads') }}/{{ $product->folder }}/thumb/{{ $product->feasured_image }}"
+                                                            alt="">
+                                                </a></div>
+
+                                        </div>
+                                        <div class="product-info text-left">
+                                            <div class="product-price">
+                                <span class="price">
+
+
+                                  @money($sell_price)
+                                </span>
+                                                <?php
+                                                if($product->discount_price){
+
+
+                                                ?>
+                                                <span class="price-before-discount"
+                                                      style="color:red">  @money($product->product_price) </span>
+
+                                                <?php
+
+
+                                                }
+                                                ?>
+                                            </div>
+                                            <p style="margin: -3px 1px;text-align:center"> Code:{{$product->sku}}</p>
+                                            <h3 style="margin-top: 2px;margin-bottom: -2px;" class="name">
+                                                <a href="{{ url('/') }}/{{$product->product_name}}">
+
+                                                    {{ $product->product_title }}
+                                                </a>
+                                            </h3>
+                                        </div>
+
+
+                                    </div>
+
+
+                                </div>
+                            </div>
+                            <?php } } ?>
+
+
+                        </div>
+                    </section>
+
+
+
                     <?php
 
 
@@ -123,7 +209,9 @@
 
 
                     $products = DB::table('product')->select('product.product_id', 'product_title', 'product_name', 'discount_price', 'product_price', 'folder', 'feasured_image', 'sku')->join('product_category_relation', 'product.product_id', '=', 'product_category_relation.product_id')
-                        ->where('product_category_relation.category_id', $home_cat_section)->where('status','=',1)->orderBy('modified_time','desc')->paginate(10);
+                        ->where('product_category_relation.category_id', $home_cat_section)->where('status','=',1)->orderBy('product.product_id','DESC')->paginate(10);
+                        
+                        
                     ?>
                     <section class="section featured-product wow ">
                         <h3 class="section-title"><a
@@ -186,39 +274,6 @@
                                                 </a>
                                             </h3>
                                         </div>
-{{--                                        <div class="cart clearfix animate-effect">--}}
-{{--                                            <div class="action">--}}
-{{--                                                <ul class="list-unstyled">--}}
-
-{{--                                                    <li class="add-cart-button">--}}
-{{--                                                        <button data-product_id="{{ $product->product_id}}"--}}
-{{--                                                                data-picture="{{ url('/public/uploads') }}/{{ $product->folder }}/small/{{ $product->feasured_image}}"--}}
-{{--                                                                class="btn btn-primary add_to_cart"--}}
-{{--                                                                type="button">Add to cart--}}
-{{--                                                        </button>--}}
-{{--                                                    </li>--}}
-{{--                                                    <li class="add-cart-button btn-group">--}}
-
-{{--                                                        <button data-product_id="{{ $product->product_id}}"--}}
-{{--                                                                data-picture="{{ url('/public/uploads') }}/{{ $product->folder }}/small/{{ $product->feasured_image}}"--}}
-{{--                                                                class="btn btn-primary buy-now-cart icon"--}}
-{{--                                                                data-toggle="dropdown"--}}
-{{--                                                                type="button">--}}
-{{--                                                            <i class="fa fa-shopping-cart"></i>--}}
-{{--                                                        </button>--}}
-
-{{--                                                    </li>--}}
-{{--                                                    <li class="lnk wishlist">--}}
-{{--                                                        <a class="add-to-wishlist"--}}
-{{--                                                           data-product_id="{{ $product->product_id}}"--}}
-{{--                                                           href="javascript:void(0)" title="Wishlist">--}}
-{{--                                                            <i class="icon fa fa-heart"></i>--}}
-{{--                                                        </a>--}}
-{{--                                                    </li>--}}
-
-{{--                                                </ul>--}}
-{{--                                            </div>--}}
-{{--                                        </div>--}}
 
 
                                     </div>
@@ -241,7 +296,6 @@
                     ?>
 
                     <span class="home_page_category"></span>
-                    <span id="hot_ajax_product"></span>
 
 
                 </div>
@@ -256,7 +310,7 @@
     <div class="col-md-6 col-sm-4 col-xs-4"></div>
         <div class="col-md-2 col-sm-4 col-xs-4">
             <hr/>
-            <a href="{{url('category')}}/all-products" class="btn btn-success"> See more</a>
+            <a href="{{url('all-products')}}" class="btn btn-success"> See more</a>
             <hr/>
             <br>
         </div>
@@ -317,46 +371,5 @@
 
             });
     </script>
-    <script>
-
-        jQuery.ajax(
-            {
-
-                url: "{{url('/hot_home_product')}}",
-
-                type: "get",
-
-
-            })
-
-            .done(function (data) {
-                // console.log(data.html)
-                if (data.html == " ") {
-
-
-                }
-
-
-                jQuery("#hot_ajax_product").html(data.html);
-                jQuery(".best-seller").owlCarousel({
-                    items: 4,
-                    navigation: true,
-                    itemsDesktopSmall: [979, 2],
-                    itemsDesktop: [1199, 2],
-                    slideSpeed: 300,
-                    pagination: false,
-                    paginationSpeed: 400,
-                    navigationText: ["", ""]
-                });
-
-
-            })
-
-            .fail(function (jqXHR, ajaxOptions, thrownError) {
-
-
-            });
-    </script>
-
 
 @endsection

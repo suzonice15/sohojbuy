@@ -30,17 +30,55 @@ class OrderController extends Controller
         $data['main'] = 'Orders';
         $data['active'] = 'All Orders';
         $data['title'] = '  ';
-        $orders= DB::table('order_data')->orderBy('order_id', 'desc')->paginate(10);
+        $data['order_status'] = 'new';
+        $orders= DB::table('order_data')->where('order_status','new')->orderBy('order_id', 'desc')->paginate(10);
         return view('admin.order.index', compact('orders'),$data);
     }
     public  function  pagination(Request $request){
         if($request->ajax())
         {
 
+//            $query = $request->get('query');
+            $status = $request->get('status');
+//            $query = str_replace(" ", "%", $query);
+            $orders = DB::table('order_data')->where('order_status',$status)->orderBy('order_id', 'desc')
+                ->paginate(10);
+
+//            $orders = DB::table('order_data')->where('order_status',$status)->orWhere('order_id','LIKE','%'.$query.'%')
+//                ->orWhere('customer_phone','LIKE','%'.$query.'%')->orderBy('order_id', 'desc')
+//                ->paginate(10);
+            return view('admin.order.pagination', compact('orders'));
+        }
+
+    }
+
+    public function pagination_by_search(Request $request){
+
+        if($request->ajax())
+        {
+
             $query = $request->get('query');
+
             $query = str_replace(" ", "%", $query);
-            $orders = DB::table('order_data')->where('order_id','LIKE','%'.$query.'%')
+
+
+            $orders = DB::table('order_data')->orWhere('order_id','LIKE','%'.$query.'%')
                 ->orWhere('customer_phone','LIKE','%'.$query.'%')->orderBy('order_id', 'desc')
+                ->paginate(10);
+            return view('admin.order.pagination', compact('orders'));
+        }
+
+    }
+
+
+    public  function  pagination_by_status(Request $request){
+        if($request->ajax())
+        {
+
+
+            $status = $request->get('status');
+
+            $orders = DB::table('order_data')->where('order_status',$status)->orderBy('order_id', 'desc')
                 ->paginate(10);
             return view('admin.order.pagination', compact('orders'));
         }
@@ -247,13 +285,36 @@ class OrderController extends Controller
 
 
             $this->commisionDistribution($order_number);
+            $this->pointDistribution($order_number);
 
         }
 
 
+
+
+
         if ($order_data) {
 
-            return  redirect('admin/orders')
+/// stock add
+            if ($order_status == 'cancled') {
+                $order_details = DB::table('order_data')->where('order_id', $order_number)->first();
+                $order_items = unserialize($order_details->products);
+                if (is_array($order_items['items'])) {
+                    foreach ($order_items['items'] as $product_id => $item) {
+
+
+                        $product_stock = DB::table('product')->select('product_stock')->where('product_id', $product_id)->first();
+                        if ($product_stock) {
+                            $stock['product_stock'] = $product_stock->product_stock + $item['qty'];
+                            $product_stock = DB::table('product')->where('product_id', $product_id)->update($stock);
+
+                        }
+                    }
+                }
+            }
+
+
+                    return  redirect('admin/orders')
                 ->with('success', 'Updated successfully.');
         } else {
 
@@ -264,10 +325,79 @@ class OrderController extends Controller
 
     }
 
+    // point distribution to normal user
+
+    function pointDistribution($order_id)
+    {
+
+        $order_details = DB::table('order_data')->where('order_id', $order_id)->first();
+        if($order_details->customer_id > 0) {
+
+
+            if (!empty($order_details)) {
+
+                $order_id = $order_details->order_id;
+                $baseID = $order_details->customer_id; // order korse je tar userid
+                $order_items = unserialize($order_details->products);
+                if (is_array($order_items['items'])) {
+                    $single_product_point = 0;
+                    foreach ($order_items['items'] as $product_id => $item) {
+
+                        $single_product = DB::table('product')->select('product_point')->where('product_id', $product_id)->first();
+                        //print_r($single_product);
+                        $single_product_point += $single_product->product_point * $item['qty'];
+
+                    }
+
+
+
+
+
+
+                    $user = DB::table('users')->where('id', $baseID)->first();
+                    if ($user) {
+                        $points = $user->points;
+                        $data['points'] =$single_product_point + $points;
+
+                                            }
+
+
+                    if (!empty($baseID)) {
+
+                        DB::table('users')->where('id', $baseID)->update($data);
+
+                    }
+
+
+                    //all insert query start from here.
+                    if (!empty($baseID)) {
+                        $row_data['order_id'] = $order_id;
+                        $row_data['user_id'] = $baseID;
+                        $row_data['point'] =  $data['points'];
+
+                        DB::table('user_point_history')->insert($row_data);
+
+                    }
+
+
+
+                }
+
+
+            }
+
+
+        }
+    }
+
+
     function commisionDistribution($order_id)
     {
 
         $order_details = DB::table('order_data')->where('order_id', $order_id)->first();
+
+
+        /// affiliate order from  website
         if($order_details->user_id > 0) {
 
 
@@ -284,7 +414,7 @@ class OrderController extends Controller
                         $single_product = DB::table('product')->select('product_profite', 'product_point')->where('product_id', $product_id)->first();
                         //print_r($single_product);
                         $single_product_profit += $single_product->product_profite * $item['qty'];
-                        $single_product_point += $single_product->product_point * $item['qty'];
+                       // $single_product_point += $single_product->product_point * $item['qty'];
 
                     }
 
@@ -303,28 +433,21 @@ class OrderController extends Controller
 
 
                     $pointvalue = 0;
-//                        comission_3=son
-//                        comission_3=father
-//                        comission_3=Grand fater
-
-                    //$comission_5 = $this->Public_model->getValueStore('commission_level_5');
-                    //  $comission_4 = $this->Public_model->getValueStore('commission_level_4');
-
-//                $comission_2 = $this->Public_model->getValueStore('commission_level_2');
-//                $comission_1 = $this->Public_model->getValueStore('commission_level_1');
-
 
                     $comission_price_3 = (($single_product_profit * $comission_3) / 100);
 
 
                     $son = DB::table('users_public')->where('id', $baseID)->first();
+
+
+                    /// son income
                     if ($son) {
                         $base_name = $son->name;
                         $data_principalblance_3['earning_balance'] = $son->earning_balance + $comission_price_3;
-                        $data_principalblance_3['shopping_point'] = $son->shopping_point + $single_product_point;
+                       // $data_principalblance_3['shopping_point'] = $son->shopping_point + $single_product_point;
 
                         $father_id = $son->parent_id; // got parent id for base user.
-
+                        /// father income
                         if ($father_id) {
                             $comission_price_2 = ($comission_price_3 * 10) / 100;
                             $father = DB::table('users_public')->where('id', $father_id)->first();
@@ -334,14 +457,17 @@ class OrderController extends Controller
                             $grand_father_id = $father->parent_id; // got parent id for base user.
                         }
 
-//                if($grand_father_id){
-//                    $comission_price_1=($comission_price_2*1)/100;
-//                    $grand_father=  DB::table('users_public')->where('id',$grand_father_id)->first();
-//                    $earning_history_1['earner_name'] = $grand_father->name;
-//                    $data_principalblance_1['earning_balance']= $grand_father->earning_balance+$comission_price_1;
-//                    $data_principalblance_1['points_balance']= $grand_father->points_balance+50;
-//                  //  $grand_father_id = $father->parent_id; // got parent id for base user.
-//                }
+
+                        /// grandfather income
+
+                if(isset($grand_father_id)){
+                    $comission_price_1=($comission_price_2*1)/100;
+                    $grand_father=  DB::table('users_public')->where('id',$grand_father_id)->first();
+                    $earning_history_1['earner_name'] = $grand_father->name;
+                    $data_principalblance_1['earning_balance']= $grand_father->earning_balance+$comission_price_1;
+                    //$data_principalblance_1['points_balance']= $grand_father->points_balance+50;
+                  //  $grand_father_id = $father->parent_id; // got parent id for base user.
+                }
 
 
                     }
@@ -357,11 +483,11 @@ class OrderController extends Controller
                         DB::table('users_public')->where('id', $father_id)->update($data_principalblance_2);
 
                     }
-//                if (!empty($grand_father)) {
-//
-//                    DB::table('users_public')->where('id',$grand_father_id)->update($data_principalblance_1);
-//
-//                }
+                if (!empty($grand_father_id)) {
+
+                    DB::table('users_public')->where('id',$grand_father_id)->update($data_principalblance_1);
+
+                }
 
 
                     //all insert query start from here.
@@ -383,15 +509,15 @@ class OrderController extends Controller
                         DB::table('earning_history')->insert($earning_history_2);
 
                     }
-//                if (!empty($grand_father_id)) {
-//                    $earning_history_1['order_id']=$order_id;
-//                    $earning_history_1['earner_name']=$base_name;
-//                    $earning_history_1['earner_id']=$baseID;
-//                    $earning_history_1['commision']=$comission_price_1;
-//                    $earning_history_1['earning_for_id']=$grand_father_id;
-//                    DB::table('earning_history')->insert($earning_history_1);
-//
-//                }
+                if (!empty($grand_father_id)) {
+                    $earning_history_1['order_id']=$order_id;
+                    $earning_history_1['earner_name']=$base_name;
+                    $earning_history_1['earner_id']=$baseID;
+                    $earning_history_1['commision']=$comission_price_1;
+                    $earning_history_1['earning_for_id']=$grand_father_id;
+                    DB::table('earning_history')->insert($earning_history_1);
+
+                }
 
 
                 }
@@ -401,7 +527,150 @@ class OrderController extends Controller
 
 
         }
+
+
+        /// direct  order from  affilita panel
+
+        if($order_details->order_from_affilite_id > 0) {
+
+
+
+
+                $order_id = $order_details->order_id;
+                $baseID = $order_details->order_from_affilite_id; // order korse je tar user_id
+                $order_items = unserialize($order_details->products);
+                if (is_array($order_items['items'])) {
+                    $single_product_profit = 0;
+                    $single_product_point = 0;
+                    foreach ($order_items['items'] as $product_id => $item) {
+
+                        $single_product = DB::table('product')->select('product_profite', 'product_point')->where('product_id', $product_id)->first();
+                        //print_r($single_product);
+                      $single_product_profit += $single_product->product_profite * $item['qty'];
+                        $single_product_point += $single_product->product_point * $item['qty'];
+
+                    }
+
+
+                    // money for son
+
+
+
+
+                   // $pointvalue = 0;
+
+
+
+
+                    $son = DB::table('users_public')->where('id', $baseID)->first();
+                    if ($son) {
+                        $base_name = $son->name;
+                       // $data_principalblance_3['earning_balance'] = $son->earning_balance + $comission_price_3;
+                        $data_principalblance_3['shopping_point'] = $son->shopping_point + $single_product_point;
+
+                        $father_id = $son->parent_id; // got parent id for base user.
+
+                        if ($father_id) {
+
+
+                            $commistion = DB::table('affilite_commission_lavel')->where('user_id', $father_id)->orderBy('commision_lavel_id','desc')->first();
+                            if(empty($commistion)){
+                                $comission_3 = 10;
+
+                            } else {
+
+                                $comission_3 = $commistion->commision;
+                            }
+
+                            $comission_price_3 = (($single_product_profit * $comission_3) / 100);
+
+                           // $comission_price_2 = ($comission_price_3 * 10) / 100;
+                            $father = DB::table('users_public')->where('id', $father_id)->first();
+                            $earning_history_2['earner_name'] = $father->name;
+                            $data_principalblance_2['earning_balance'] = $father->earning_balance + $comission_price_3;
+                            // $data_principalblance_2['shopping_point']= $father->shopping_point+50;
+                            $grand_father_id = $father->parent_id; // got parent id for base user.
+                            if($grand_father_id){
+                                $grand_father_id = $father->parent_id; // got parent id for base user.
+
+                            } else {
+
+                                $grand_father_id = 2; // got parent id for base user.
+
+                            }
+                        }
+
+                if(isset($grand_father_id)){
+                    $comission_price_1=($comission_price_3*10)/100;
+                    $grand_father=  DB::table('users_public')->where('id',$grand_father_id)->first();
+                    $earning_history_1['earner_name'] = $grand_father->name;
+                    $data_principalblance_1['earning_balance']= $grand_father->earning_balance+$comission_price_1;
+                   // $data_principalblance_1['points_balance']= $grand_father->points_balance+50;
+                    $grand_father_id = $father->parent_id; // got parent id for base user.
+                }
+
+
+                    }
+
+
+                    if (!empty($baseID)) {
+
+                        DB::table('users_public')->where('id', $baseID)->update($data_principalblance_3);
+
+                    }
+                    if (!empty($father_id)) {
+
+                        DB::table('users_public')->where('id', $father_id)->update($data_principalblance_2);
+
+                    }
+                if (!empty($grand_father_id)) {
+
+                    DB::table('users_public')->where('id',$grand_father_id)->update($data_principalblance_1);
+
+                }
+
+
+                    //all insert query start from here.
+                    if (!empty($baseID)) {
+                        $earning_history_3['order_id'] = $order_id;
+                        $earning_history_3['earner_name'] = $base_name;
+                        $earning_history_3['earner_id'] = $baseID;
+                        $earning_history_3['points'] = $single_product_point;
+                        $earning_history_3['earning_for_id'] = $baseID;
+                        DB::table('earning_history')->insert($earning_history_3);
+
+                    }
+                    if (!empty($father_id)) {
+                        $earning_history_2['order_id'] = $order_id;
+                        $earning_history_2['earner_name'] = $base_name;
+                        $earning_history_2['earner_id'] = $baseID;
+                        $earning_history_2['commision'] = $comission_price_3;
+                        $earning_history_2['earning_for_id'] = $father_id;
+                        DB::table('earning_history')->insert($earning_history_2);
+
+                    }
+                if (!empty($grand_father_id)) {
+                    $earning_history_1['order_id']=$order_id;
+                    $earning_history_1['earner_name']=$base_name;
+                    $earning_history_1['earner_id']=$baseID;
+                    $earning_history_1['commision']=$comission_price_1;
+                    $earning_history_1['earning_for_id']=$grand_father_id;
+                    DB::table('earning_history')->insert($earning_history_1);
+
+                }
+
+
+                }
+
+
+
+
+
         }
+
+
+
+    }
 
     /**
      * Remove the specified resource from storage.

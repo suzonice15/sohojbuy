@@ -47,6 +47,28 @@ class ReportController extends Controller
         return view('admin.report.order_report',$data);
     }
 
+    public function limited_product()
+    {
+        $user_id=AdminHelper::Admin_user_autherntication();
+        $url=  URL::current();
+
+        if($user_id < 1){
+            //  return redirect('admin');
+            Redirect::to('admin')->with('redirect',$url)->send();
+
+        }
+
+        $data['main'] = 'Limited Products';
+        $data['active'] = 'Limited Products';
+        $data['title'] = '';         
+     
+        $data['products']= DB::table('product')->where('product_stock','=',0)->orderBy('product_id', 'desc')->get();
+         return view('admin.report.stock_product',$data);
+    }
+
+
+
+
     public function order_report_by_ajax(Request $request){
 
 

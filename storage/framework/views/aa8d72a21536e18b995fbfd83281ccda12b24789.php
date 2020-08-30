@@ -6,6 +6,7 @@
     <div class="row">
         <div class="col-lg-3 col-xs-6">
             <!-- small box -->
+            <a href="<?php echo e(url('admin/orders')); ?>" style="text-decoration: none">
             <div class="small-box bg-aqua">
                 <div class="inner">
                     <h3><?php echo e($new); ?></h3>
@@ -18,6 +19,7 @@
                 </div>
 
             </div>
+        </a>
         </div>
         <!-- ./col -->
         <div class="col-lg-3 col-xs-6">
@@ -191,10 +193,10 @@
         <!-- small box -->
         <div class="small-box bg-aqua">
             <div class="inner">
-                <h3>88888</h3>
+                <h3> <a href="<?php echo e(url('/admin/limited/product')); ?>" style="color: white;" ><?php echo e($limited_products); ?></a></h3>
                 <h4></h4>
 
-                <p>Today Visitors</p>
+                <p>Limited Products</p>
             </div>
             <div class="icon">
                 <i class="ion ion-bag"></i>

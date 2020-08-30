@@ -182,6 +182,7 @@
                                                 <option value="delivered">Delivered</option>
                                                 <option value="refund">Refunded</option>
                                                 <option value="cancled">Cancelled</option>
+
                                                 <option value="completed">Completed</option>
 
                                             </select>

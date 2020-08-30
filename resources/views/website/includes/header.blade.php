@@ -6,20 +6,21 @@
     <?php
 
 
+    $customer_id = Session::get('customer_id');
 
 
-            if(isset($page_title)){
-                $title=$page_title.'-'.get_option('site_title');
-            } else {
+    if (isset($page_title)) {
+        $title = $page_title . '-' . get_option('site_title');
+    } else {
 
-                $title=get_option('site_title');
-            }
+        $title = get_option('site_title');
+    }
 
 
 
 
     ?>
-    <!-- Meta -->
+            <!-- Meta -->
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -39,9 +40,15 @@
     <link rel="stylesheet" href="{{ asset('assets/font_end/')}}/css/stellarnav.css">
 
 
-    <meta name="title" content="<?php if(isset($seo_title)){ echo $seo_title;}?>"/>
-    <meta name="keywords" content="<?php if(isset($seo_keywords)){ echo $seo_keywords;}?>"/>
-    <meta name="description" content="<?php if(isset($seo_description)){ echo $seo_description;}?>"/>
+    <meta name="title" content="<?php if (isset($seo_title)) {
+        echo $seo_title;
+    }?>"/>
+    <meta name="keywords" content="<?php if (isset($seo_keywords)) {
+        echo $seo_keywords;
+    }?>"/>
+    <meta name="description" content="<?php if (isset($seo_description)) {
+        echo $seo_description;
+    }?>"/>
 
     <meta name="robots" content="index,follow"/>
 
@@ -49,13 +56,21 @@
     <link rel="canonical" href="{{url()->current()}}"/>
     <meta property="og:locale" content="EN"/>
     <meta property="og:url" content="{{url()->current()}}"/>
-    <meta property="og:type" content="<?php if(isset($seo_description)){ echo $seo_description;}?>"/>
-    <meta property="og:title" content="<?php if(isset($seo_title)){ echo $seo_title;}?>"/>
-    <meta property="og:description"  name="description" content="<?php if(isset($seo_description)){ echo $seo_description;}?>"/>
-    <meta property="og:image" content="<?php if(isset($share_picture)){ echo $share_picture;} ?>"/>
-    <meta property="og:site_name" content="<?php if(isset($seo_keywords)){ echo $seo_keywords;}?>"/>
-
-
+    <meta property="og:type" content="<?php if (isset($seo_description)) {
+        echo $seo_description;
+    }?>"/>
+    <meta property="og:title" content="<?php if (isset($seo_title)) {
+        echo $seo_title;
+    }?>"/>
+    <meta property="og:description" name="description" content="<?php if (isset($seo_description)) {
+        echo $seo_description;
+    }?>"/>
+    <meta property="og:image" content="<?php if (isset($share_picture)) {
+        echo $share_picture;
+    } ?>"/>
+    <meta property="og:site_name" content="<?php if (isset($seo_keywords)) {
+        echo $seo_keywords;
+    }?>"/>
 
 
     <link rel="stylesheet" href="{{ asset('assets/font_end/')}}/css/bootstrap-select.min.css">
@@ -129,11 +144,22 @@
                     <ul class="list-unstyled">
                         <li><a href="{{url('/vendor/login')}}"><i class="icon fa fa-user"></i>Vendor</a></li>
                         <li><a href="{{url('/track-your-order')}}"><i class="icon fa fa-search"></i>Track Order</a></li>
-                        <li><a href="#"><i class="icon fa fa-user"></i>My Account</a></li>
                         <li><a href="{{ url('/') }}/wishlist"><i class="icon fa fa-heart"></i>Wishlist</a></li>
                         <li><a href="{{url('/cart')}}"><i class="icon fa fa-shopping-cart"></i>My Cart</a></li>
                         <li><a href="{{url('/checkout')}}"><i class="icon fa fa-check"></i>Checkout</a></li>
+
+                        <?php if(isset($customer_id)) {
+
+                        ?>
+                        <li><a href="{{URL::to('/customer/dasboard')}}"><i class="icon fa fa-user"></i>My Account</a>
+                        </li>
+
+                        <?php
+                        } else { ?>
                         <li><a href="{{URL::to('/customer/login')}}"><i class="icon fa fa-lock"></i>Login</a></li>
+
+                        <?php } ?>
+
                     </ul>
                 </div>
 
@@ -154,7 +180,17 @@
             <li><a href="{{url('/cart')}}"><i class="icon fa fa-shopping-cart"></i>My Cart</a></li>
             <li><a href="{{url('/checkout')}}"><i class="icon fa fa-check"></i>Checkout</a></li>
             <li><a href="{{url('/vendor/login')}}"><i class="icon fa fa-check"></i>Vendor</a></li>
-            <li><a href="#"><i class="icon fa fa-lock"></i>Login</a></li>
+
+            <?php if(isset($customer_id)) {
+
+            ?>
+            <li><a href="{{URL::to('/customer/dasboard')}}"><i class="icon fa fa-user"></i>My Account</a></li>
+
+
+            <?php } else { ?>
+            <li><a href="{{URL::to('/customer/login')}}"><i class="icon fa fa-lock"></i>Login</a></li>
+
+            <?php } ?>
         </div>
         <!-- "Hamburger menu" / "Bar icon" to toggle the navigation links -->
         <a href="javascript:void(0);" class="icon" onclick="myFunction()">
@@ -171,8 +207,9 @@
 
                 width: 72% !important;
                 background: #f1f1f1;
-                margin-left:50px;
+                margin-left: 50px;
             }
+
             form.example button {
                 float: left;
                 width: 11% !important;
@@ -185,6 +222,7 @@
                 cursor: pointer;
             }
         }
+
         form.example input[type=text] {
             padding: 10px;
             font-size: 17px;
@@ -231,7 +269,7 @@
                     <div class="search-area" id="search">
 
 
-                        <form class="example" action="{{ url('search') }}?search=" method="get" >
+                        <form class="example" action="{{ url('search') }}?search=" method="get">
                             <input type="text" id="searc_query" placeholder="Search Products......." name="search">
                             <button type="submit"><i class="fa fa-search"></i></button>
                         </form>
@@ -245,11 +283,12 @@
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-2 mobile-phone ">
 
-                    <h2 style="color: black;font-weight: bold;margin-top: 13px;margin-left: -61px;"><img style="width: 50px;" src="{{url('/public/')}}/call.gif"><?=get_option('phone')?></h2>
+                    <h2 style="color: black;font-weight: bold;margin-top: 13px;margin-left: -61px;"><img
+                                style="width: 50px;" src="{{url('/public/')}}/call.gif"><?=get_option('phone')?></h2>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-2 animate-dropdown top-cart-row">
 
-                      <!-- SHOPPING CART DROPDOWN -->
+                    <!-- SHOPPING CART DROPDOWN -->
                     <div class="dropdown dropdown-cart">
                         <a href="{{url('/cart')}}" class="dropdown-toggle lnk-cart main_parent_category"
                            data-toggle="dropdown">
@@ -304,11 +343,13 @@
                     <div class="navbar-collapse collapse" id="mc-horizontal-menu-collapse">
                         <div class="nav-outer">
                             <ul class="nav navbar-nav desktop-menu-responsive">
-
+                                <li class="dropdown ">
+                                    <a href="{{url('/all-products')}}">All Products</a>
+                                </li>
 
                                 <?php
 
-                                $categories = DB::table('category')->select('category_id', 'category_title', 'category_name')->where('parent_id', 0)->where('status',1)->paginate(13);
+                                $categories = DB::table('category')->select('category_id', 'category_title', 'category_name')->where('parent_id', 0)->where('status', 1)->paginate(13);
 
 
                                 if($categories){
@@ -341,7 +382,7 @@
                                                     ?>
                                                     <div class="col-xs-12 col-sm-6 col-md-2 col-menu">
                                                         <h2 class="title"><a
-                                                                href="{{url('/category')}}/{{$second->category_name}}">{{$second->category_title}}</a>
+                                                                    href="{{url('/category')}}/{{$second->category_name}}">{{$second->category_title}}</a>
                                                         </h2>
                                                         <ul class="links">
                                                             <?php if(count($thirdCategories) > 0) {
@@ -380,6 +421,7 @@
 
 
 
+
                             </ul>
                             <div class="clearfix"></div>
                         </div>
@@ -398,73 +440,75 @@
 
 
 
-    if($mobile==1 or $tablet==1) {
+    if($mobile == 1 or $tablet == 1) {
     ?>
     <div class="stellarnav mobile-menu-responsive">
         <ul>
+ 
 
+            <li><a href="{{url('/all-products')}}">All Products</a></li>
 
-            <?php
+        <?php
 
-            $categories = DB::table('category')->select('category_id', 'category_title', 'category_name')->where('parent_id', 0)->where('status',1)->get();
+            $categories = DB::table('category')->select('category_id', 'category_title', 'category_name')->where('parent_id', 0)->where('status', 1)->get();
 
 
             if($categories){
 
 
 
-                foreach ($categories as $first){
-                    $firstCategory_id = $first->category_id;
-                    $secondCategories = DB::table('category')->select('category_id', 'category_title', 'category_name')->where('parent_id', $firstCategory_id)->orderBy('category_id', 'ASC')->get();
+            foreach ($categories as $first){
+            $firstCategory_id = $first->category_id;
+            $secondCategories = DB::table('category')->select('category_id', 'category_title', 'category_name')->where('parent_id', $firstCategory_id)->orderBy('category_id', 'ASC')->get();
 
-                    if(count($secondCategories) > 0){
+            if(count($secondCategories) > 0){
 
 
 
-                        ?>
+            ?>
             <li><a href="{{url('/category')}}/{{$first->category_name}}">{{$first->category_title}}</a>
                 <ul>
                     <?php foreach ($secondCategories as $second){
 
                     $secondCategory_id = $second->category_id;
                     $thirdCategories = DB::table('category')->select('category_title', 'category_name')->where('parent_id', $secondCategory_id)->orderBy('category_id', 'ASC')->get();
-if(count($thirdCategories)>0){
+                    if(count($thirdCategories) > 0){
                     ?>
 
                     <li><a href="#">{{$second->category_title}}</a>
                         <ul>
                             <?php foreach ($thirdCategories as $third) {?>
-                            <li><a href="{{url('/category')}}/{{$third->category_name}}">{{$third->category_title}}</a></li>
+                            <li><a href="{{url('/category')}}/{{$third->category_name}}">{{$third->category_title}}</a>
+                            </li>
                             <?php } ?>
 
                         </ul>
                     </li>
-                        <?php } else { ?>
+                    <?php } else { ?>
                     <li><a href="{{url('/category')}}/{{$second->category_name}}">{{$second->category_title}}</a></li>
 
 
                     <?php } }?>
 
 
-
                 </ul>
             </li>
 
-                <?php } else { ?>
+            <?php } else { ?>
 
             <li><a href="{{url('/category')}}/{{$first->category_name}}">{{$first->category_title}}</a></li>
 
             <?php
-                    }
+            }
 
-                }
-                }
-                ?>
+            }
+            }
+            ?>
 
 
         </ul>
     </div><!-- .stellarnav -->
 
-<?php  }?>
+    <?php  }?>
 </header>
 
