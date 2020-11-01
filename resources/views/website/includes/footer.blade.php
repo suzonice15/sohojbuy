@@ -1,8 +1,25 @@
 
+<style type="text/css">
+    #button_move_to_topm {
+    display: inline-block;
+    background-color: green;
+    width: 45px;
+    height: 40px;
+    text-align: center;
+    border-radius: 4px;
+    margin: 30px;
+    position: fixed;
+    bottom: 210px;
+    right: -26px;
+    transition: background-color .3s;
+    z-index: 1000;
+}
+</style>
 
 
 <footer id="footer" class="footer color-bg">
     <div class="footer-bottom">
+
         <div class="container-fluid">
             <div class="row">
                 <div class="col-xs-12 col-sm-6 col-md-3">
@@ -40,12 +57,20 @@
                 </div>
                 <div class="col-xs-12 col-sm-6 col-md-3">
                     <div class="module-heading">
-                        <h4 class="module-title">Why Choose Us</h4>
+                        <h4 class="module-title">Payments Method</h4>
                     </div>
                     <div class="module-body">
                         <ul class='list-unstyled'>
-                            <li class="first"><a href="{{url('/')}}/shopping-guide" title="About us">Shopping Guide</a></li>
-                            <li class=" last"><a href="{{url('/')}}/contact-us" title="Suppliers">Contact Us</a></li>
+                            <li class="first">
+                                <img src="http://sohojbuy.com/public/logo/nagad.png" height="40px" width="45px" style="margin-left: 3px;">
+                                <img src="http://sohojbuy.com/public/logo/bkash.png" style="float: left;margin-left: 3px;" height="40px" width="45px">
+                                <img src="http://sohojbuy.com/public/logo/rocket.png" style="float: left; margin-left: 3px;" height="40px" width="45px">
+                            </li>
+                            <li class=" last" style="margin-top: 8px;">
+                                <img src="http://sohojbuy.com/public/logo/brack.png" height="40px" width="45px" style="margin-left: 3px;">
+                                <img src="http://sohojbuy.com/public/logo/dbbl.png" style="float: left;margin-left: 3px;" height="40px" width="45px">
+                                <img src="http://sohojbuy.com/public/logo/islamic.png" style="float: left; margin-left: 3px;" height="40px" width="45px">
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -112,9 +137,49 @@
      logged_in_greeting="আস সালামু আলাইকুম, আপনাকে কিভাবে সাহায্য করতে পারি?"
      logged_out_greeting="আস সালামু আলাইকুম, আপনাকে কিভাবে সাহায্য করতে পারি?">
 </div>
-
 <a id="button_move_to_top"> </a>
+<button style="margin-top: 20px;" type="button" id="button_move_to_topm" class="btn btn-default btn-sm" data-toggle="modal" data-target="#myModalMess">
+              <span class="glyphicon glyphicon-envelope"></span> 
+            </button>
 
+<div class="modal" id="myModalMess">
+    <div class="modal-dialog">
+      <div class="modal-content">
+      
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Send Message</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        
+        <!-- Modal body -->
+        <div class="modal-body">
+            <form action="{{url('/sendMessage')}}" id="" name="" method="post">
+                @csrf
+                <div class="form-group" >
+                    <label for="billing_name"><b>Mobile Number</b></label>
+                    <input type="text" name="mobile_number" id="" value="" required="" class="form-control " placeholder="Mobile Number">
+                </div>
+                <div class="form-group">
+                    <label for="billing_name"><b>Message</b></label>
+                    <span style="color:red;font-size: 18px;margin-top: -7px;position: absolute;">*</span>
+                    <textarea  required=""  name="message"  class="form-control" placeholder="Type Your Address"></textarea>
+
+                 </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-info">Send Message</button>
+                </div>
+            </form>
+        </div>
+        
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+        
+      </div>
+    </div>
+  </div>
 <script>
 
     jQuery(document).ready(function () {

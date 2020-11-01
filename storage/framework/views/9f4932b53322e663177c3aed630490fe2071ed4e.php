@@ -24,7 +24,14 @@
 
                 <th>Product Code</th>
                 <th>Product</th>
+                <?php
+                $status= Session::get('status');
+                if ($status != 'editor') {
+                ?>
                 <th>Purchase Price</th>
+                <?php
+                    }
+                ?>
                 <th>Sell Price</th>
                 <th>Discount Price</th>
                 <th>Product Profite</th>

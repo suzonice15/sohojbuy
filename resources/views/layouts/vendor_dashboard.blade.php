@@ -4,24 +4,211 @@
 @endsection
 @section('mainContent')
     <br>
-
+    <?php
+    if ($verify->nid_image=='' && $verify->bank_image=='') {
+    ?>
+    <a href="{{url('vendor/profile')}}/{{ Session::get('id') }}">
+    <div class="row">
+        <div class="col-lg-12 col-xs-12">
+            <div class="alert alert-danger" role="alert">
+              
+              Please verify your first verification upload nid and bank statement image.
+              
+            </div>
+        </div>
+    </div>
+    </a>
+    <?php
+    }else if($verify->first_verify=='0'){
+    ?>
+    <div class="row">
+        <div class="col-lg-12 col-xs-12">
+            <div class="alert alert-warning" role="alert">
+              
+              Please waiting for admin verification.
+              
+            </div>
+        </div>
+    </div>
+    <?php
+    }else if($verify->m_name==''||$verify->b_name==''){
+    ?>
+    <a href="{{url('vendor/bank-account')}}">
+    <div class="row">
+        <div class="col-lg-12 col-xs-12">
+            <div class="alert alert-danger" role="alert">
+              Please verify your second verification.
+            </div>
+        </div>
+    </div>
+    </a>
+    <?php
+    }else if($verify->m_number==''||$verify->b_number==''){
+    ?>
+    <a href="{{url('vendor/bank-account')}}">
+    <div class="row">
+        <div class="col-lg-12 col-xs-12">
+            <div class="alert alert-danger" role="alert">
+              Please verify your second verification.
+            </div>
+        </div>
+    </div>
+    </a>
+    <?php
+    }else if($verify->m_type==''||$verify->b_branch==''){
+    ?>
+    <a href="{{url('vendor/bank-account')}}">
+    <div class="row">
+        <div class="col-lg-12 col-xs-12">
+            <div class="alert alert-danger" role="alert">
+              Please verify your second verification.
+            </div>
+        </div>
+    </div>
+    </a>
+    <?php
+    }else if($verify->m_service==''||$verify->b_bank==''){
+    ?>
+    <a href="{{url('vendor/bank-account')}}">
+    <div class="row">
+        <div class="col-lg-12 col-xs-12">
+            <div class="alert alert-danger" role="alert">
+              Please verify your second verification.
+            </div>
+        </div>
+    </div>
+    </a>
+    <?php 
+    }else if($verify->second_verify=='0'){
+    ?>
 
     <div class="row">
+        <div class="col-lg-12 col-xs-12">
+            <div class="alert alert-danger" role="alert">
+              Please waiting for admin verification.
+            </div>
+        </div>
+    </div>
 
-        <!-- ./col -->
-        <div class="col-lg-3 col-xs-6">
-            <!-- small box -->
-            <div class="small-box bg-aqua">
-                <div class="inner">
-                    <h3>{{$products}}</h3>
-                    <h4></h4>
+    <?php
+    }
+    ?>
+    <div class="row">
+        <div class="container-fluid">
+            <h3 style="text-align: center;background-color: green;color: white;height: 2%;padding: 5px;border: 2px solid black;size: auto;">{{$myBalance->vendor_shop}}</h3>
+            <!-- ./col -->
+            <a href="{{ url('vendor/products/show') }}">
+                <div class="col-md-3">
+                    <!-- small box -->
+                    <div class="small-box bg-aqua">
+                        <div class="inner">
+                            <h3>{{$products}}</h3>
+                            <h4></h4>
 
-                    <p>My Products</p>
+                            <p>My Products</p>
+                        </div>
+                        
+                    </div>
                 </div>
-                <div class="icon">
-                    <i class="ion ion-bag"></i>
+            </a>
+            
+            <a href="{{ url('vendor/orders/show') }}">
+                <div class="col-md-3">
+                    <!-- small box -->
+                    <div class="small-box bg-aqua">
+                        <div class="inner">
+                            <h3>{{$vendorTotalOrder}}</h3>
+                            <h4></h4>
+
+                            <p>Total Order</p>
+                        </div>
+                       
+                    </div>
                 </div>
-                {{--                <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>--}}
+            </a>
+            <div class="col-md-3">
+                <!-- small box -->
+                <div class="small-box bg-aqua">
+                    <div class="inner">
+                        <h3>{{$verify->life_time_earning}}</h3>
+                        <h4></h4>
+
+                        <p>Life Time Earing</p>
+                    </div>
+                    
+                </div>
+            </div>
+            <div class="col-md-3">
+                <!-- small box -->
+                <div class="small-box bg-aqua">
+                    <div class="inner">
+                        <h3>{{$totalWithdrawAmount}}</h3>
+                        <h4></h4>
+
+                        <p>Life Time Withdrow</p>
+                    </div>
+                    
+                </div>
+            </div>
+            <div class="col-md-3">
+                <!-- small box -->
+                <div class="small-box bg-aqua">
+                    <div class="inner">
+                        <h3>{{$myBalance->amount}}</h3>
+                        <h4></h4>
+
+                        <p>My Balance</p>
+                    </div>
+                    
+                </div>
+            </div>
+            <div class="col-md-3">
+                <!-- small box -->
+                <div class="small-box bg-aqua">
+                    <div class="inner">
+                        <h3>{{$total_pending_order}}</h3>
+                        <h4></h4>
+
+                        <p>Pending Order</p>
+                    </div>
+                    
+                </div>
+            </div>
+            <div class="col-md-3">
+                <!-- small box -->
+                <div class="small-box bg-aqua">
+                    <div class="inner">
+                        <h3>{{$total_approved_order}}</h3>
+                        <h4></h4>
+
+                        <p>Approved Order</p>
+                    </div>
+                    
+                </div>
+            </div>
+            <div class="col-md-3">
+                <!-- small box -->
+                <div class="small-box bg-aqua">
+                    <div class="inner">
+                        <h3>{{$total_cancel_order}}</h3>
+                        <h4></h4>
+
+                        <p>Cancel Order</p>
+                    </div>
+                    
+                </div>
+            </div>
+            <div class="col-md-3">
+                <!-- small box -->
+                <div class="small-box bg-aqua">
+                    <div class="inner">
+                        <h3>{{$total_refund_order}}</h3>
+                        <h4></h4>
+
+                        <p>Refund Order</p>
+                    </div>
+                    
+                </div>
             </div>
         </div>
 

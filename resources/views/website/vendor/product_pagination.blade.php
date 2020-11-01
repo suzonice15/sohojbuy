@@ -22,7 +22,7 @@
             <td>
                 <img src="{{ url('/public/uploads') }}/{{ $product->folder }}/small/{{ $product->feasured_image }}">
                 <br/>
-                <a href="{{ url('product') }}/{{$product->product_name}}"> {{$product->product_title}} </a>
+                <a href="{{ url('') }}/{{$product->product_name}}"> {{$product->product_title}} </a>
 
             </td>
 
@@ -41,6 +41,16 @@
 
                 <?php } ?> </td>
             <td>{{date('d-m-Y H:m s',strtotime($product->created_time))}}</td>
+            <td>
+                <?php
+                    $click = DB::table('product_hit_count')->where('product_id', $product->product_id)->count();
+                    if ($click) {
+                        echo $click;
+                    }else{
+                        echo "0";
+                    }
+                ?>
+            </td>
             <td>
                 <a title="edit" href="{{ url('vendor/product') }}/{{ $product->product_id }}">
                     <span class="glyphicon glyphicon-edit btn btn-success"></span>

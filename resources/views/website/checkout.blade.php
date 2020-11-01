@@ -15,10 +15,12 @@ $product_id=$row->id;
    $delever_charge=DB::table('product')->select('delivery_in_dhaka','delivery_out_dhaka')->where('product_id',$product_id)->first();
 if($delever_charge){
     if($delever_charge->delivery_in_dhaka){
-        $indhaka += $delever_charge->delivery_in_dhaka*$row->quantity;
+        $indhaka += $delever_charge->delivery_in_dhaka;
+        
     }
     if($delever_charge->delivery_out_dhaka){
-        $outdhaka += $delever_charge->delivery_out_dhaka*$row->quantity;
+        $outdhaka += $delever_charge->delivery_out_dhaka;
+        
     }
 
 
@@ -143,8 +145,8 @@ if(Session::get('email')){
 
 
                                             <tr>
-                                                <input type="hidden" class="shipping_charge_in_dhaka" value="<?=$indhaka?>">
-                                                <input type="hidden" class="shipping_charge_out_of_dhaka" value="<?=$outdhaka?>">
+                                                <input type="hidden" class="shipping_charge_in_dhaka" value="<?php if($indhaka=='0'){echo "60"; }else{echo $indhaka;} ?>">
+                                                <input type="hidden" class="shipping_charge_out_of_dhaka" value="<?php if($outdhaka=='0'){echo "120"; }else{echo $outdhaka;} ?>">
                                             </tr>
 
 

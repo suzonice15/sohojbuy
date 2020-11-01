@@ -53,11 +53,19 @@ class DashboardController extends Controller
             $data['cancled'] = DB::table('order_data')->where('order_status', 'cancled')->count();
             $data['cancled_sum'] = DB::table('order_data')->where('order_status', 'cancled')->sum('order_total');
             $data['completed'] = DB::table('order_data')->where('order_status', 'completed')->count();
+            $data['vendorTotalOrder'] = DB::table('vendor_orders')->join('order_data','order_data.order_id','=','vendor_orders.order_id')->where('vendor_orders.vendor_id',Session::get('id'))->orderBy('vendor_orders.order_id', 'desc') ->groupBy('vendor_orders.order_id')->count();
             $data['completed_sum'] = DB::table('order_data')->where('order_status', 'completed')->sum('order_total');
             $data['today_order'] = DB::table('order_data')->where('order_date', $today)->count();
             $data['today_order_sum'] = DB::table('order_data')->where('order_date', $today)->sum('order_total');
             $data['products'] = DB::table('product')->where('vendor_id',Session::get('id'))->count();
             $data['category'] = DB::table('category')->count();
+            $data['myBalance']=DB::table('vendor')->where('vendor_id',Session::get('id'))->first();
+            $data['verify']=DB::table('vendor')->where('vendor_id',Session::get('id'))->first();
+            $data['totalWithdrawAmount'] = DB::table('vendor_withdraw_amount')->where('vendorId',Session::get('id'))->where('status','1')->sum('withdrawAmount');
+            $data['total_pending_order'] = DB::table('product')->where('status','=',0)->where('vendor_id',Session::get('id'))->count();
+            $data['total_approved_order'] = DB::table('product')->where('status','=',1)->where('vendor_id',Session::get('id'))->count();
+            $data['total_cancel_order'] = DB::table('vendor_orders')->join('order_data','order_data.order_id','=','vendor_orders.order_id')->where('vendor_orders.vendor_id',Session::get('id'))->where('order_data.order_status','cancled')->orderBy('vendor_orders.order_id', 'desc') ->groupBy('vendor_orders.order_id')->count();
+            $data['total_refund_order'] = DB::table('vendor_orders')->join('order_data','order_data.order_id','=','vendor_orders.order_id')->where('vendor_orders.vendor_id',Session::get('id'))->where('order_data.order_status','refund')->orderBy('vendor_orders.order_id', 'desc') ->groupBy('vendor_orders.order_id')->count();
             return view('layouts.vendor_dashboard', $data);
 
         }
@@ -86,6 +94,8 @@ class DashboardController extends Controller
             $data['category'] = DB::table('category')->count();
 
             $data['limited_products']= DB::table('product')->where('product_stock','=',0)->count();
+            $data['vendor_profit'] = DB::table('vendor_product_price_history')->sum('amount');
+            $data['vendor_pending_product'] = DB::table('product')->where('vendor_id','!=',0)->where('status','=',0)->count();
 
             return view('layouts.dashboard', $data);
         }

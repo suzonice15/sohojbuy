@@ -32,8 +32,6 @@
             </li>
 
             <?php
-
-
             if($status=='super-admin' or $status=='office-staff') {
             ?>
             <li class="treeview active">
@@ -47,6 +45,44 @@
                 <ul class="treeview-menu">
                     <li><a href=" {{ url('admin/order/create') }}"><i class="fa fa-circle-o"></i>Add New Order</a></li>
                     <li><a href=" {{ url('admin/orders') }}"><i class="fa fa-circle-o"></i>All Orders</a></li>
+
+
+                </ul>
+            </li>
+
+            <?php } ?>
+
+            <?php
+            if($status=='editor') {
+            ?>
+            <li class="treeview active">
+                <a href="#">
+                    <i class="fa fa-user"></i>
+                    <span>Orders</span>
+                    <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href=" {{ url('admin/order/create') }}"><i class="fa fa-circle-o"></i>Add New Order</a></li>
+                    <li><a href=" {{ url('admin/orders') }}"><i class="fa fa-circle-o"></i>All Orders</a></li>
+
+
+                </ul>
+            </li>
+
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-user"></i>
+                    <span>Products</span>
+                    <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href=" {{ url('admin/product/create') }}"><i class="fa fa-circle-o"></i>Add New Product </a>
+                    </li>
+                    <li><a href=" {{ url('admin/products') }}"><i class="fa fa-circle-o"></i>All Products List</a></li>
 
 
                 </ul>
@@ -73,7 +109,7 @@
                     <li><a href=" {{ url('admin/product/create') }}"><i class="fa fa-circle-o"></i>Add New Product </a>
                     </li>
                     <li><a href=" {{ url('admin/products') }}"><i class="fa fa-circle-o"></i>All Products List</a></li>
-
+                    <li><a href=" {{ url('admin/staff-products') }}"><i class="fa fa-circle-o"></i>Staff Products List</a></li>
 
                 </ul>
             </li>
@@ -110,7 +146,12 @@
                     </li>
                     <li><a href=" {{ url('admin/vendor/published/products') }}"><i class="fa fa-circle-o"></i>Vendor Published Products</a>
                     </li>
-
+                    <li><a href=" {{ url('admin/vendor/published/Withdrow') }}"><i class="fa fa-circle-o"></i>Vendor Withdrow Amount</a>
+                    </li>
+                    <li><a href=" {{ url('admin/vendor/published/shop-name') }}"><i class="fa fa-circle-o"></i>Shop Name Request</a>
+                    </li>
+                    <li><a href=" {{ url('admin/vendor/published/history') }}"><i class="fa fa-circle-o"></i>Vendor Profit History</a>
+                    </li>
 
                 </ul>
             </li>
@@ -128,6 +169,7 @@
                     <li><a href=" {{ url('admin/users') }}"><i class="fa fa-circle-o"></i>Admin Users</a></li>
                     <li><a href=" {{ url('admin/generel/users') }}"><i class="fa fa-circle-o"></i>Generel Users</a></li>
 
+                    <li><a href=" {{ url('admin/generel/message') }}"><i class="fa fa-circle-o"></i>User Message</a></li>
 
                 </ul>
             </li>
@@ -237,6 +279,8 @@
                     <li><a href=" {{ url('admin/social/setting') }}"><i class="fa fa-circle-o"></i>Social Media Setting</a></li>
                     <li><a href=" {{ url('/clear-cache') }}"><i class="fa fa-circle-o"></i>clear-cache</a></li>
 
+                    <li><a href=" {{ url('/admin/default/mailSetting') }}"><i class="fa fa-circle-o"></i>Mail Setting</a></li>
+
 
                 </ul>
             </li>
@@ -245,9 +289,26 @@
         <?php } ?>
 
 
+
+
+
+
+
+
+
 <?php
             if($status=='vendor') {
             ?>
+            
+            <li>
+                <a href="{{url('vendor/profile')}}/{{ Session::get('id') }}">
+                    <i class="fa fa-dashboard"></i> <span>Profile</span>
+                    <span class="pull-right-container">
+
+            </span>
+                </a>
+
+            </li>
             <li class="treeview active">
                 <a href="#">
                     <i class="fa fa-user"></i>
@@ -257,7 +318,7 @@
             </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href=" {{ url('vendor/orders') }}"><i class="fa fa-circle-o"></i>All Orders</a></li>
+                    <li><a href=" {{ url('vendor/orders/show') }}"><i class="fa fa-circle-o"></i>All Orders</a></li>
 
 
                 </ul>
@@ -273,10 +334,43 @@
                 </a>
                 <ul class="treeview-menu">
                     <li><a href=" {{ url('vendor/product/create') }}"><i class="fa fa-circle-o"></i>Add New Product</a></li>
-                    <li><a href=" {{ url('vendor/products') }}"><i class="fa fa-circle-o"></i>All Products</a></li>
+                    <li><a href=" {{ url('vendor/products/show') }}"><i class="fa fa-circle-o"></i>All Products</a></li>
 
 
                 </ul>
+            </li>
+
+            <li>
+                <a href="{{ url('vendor/bank-account') }}">
+                    <i class="fa fa-dashboard"></i> <span>Bank Account</span>
+                    <span class="pull-right-container">
+
+            </span>
+                </a>
+
+            </li>
+
+            <li>
+                <a href="{{ url('vendor/withdrow-amount') }}">
+                    <i class="fa fa-dashboard"></i> <span>Withdrow Amount</span>
+                    <span class="pull-right-container"></span>
+                </a>
+
+            </li>
+            <li>
+                <a href="{{ url('vendor/change-shop-name') }}">
+                    <i class="fa fa-dashboard"></i> <span>Change Shop Name</span>
+                    <span class="pull-right-container"></span>
+                </a>
+
+            </li>
+
+            <li>
+                <a href="{{ url('vendor/amount-history') }}">
+                    <i class="fa fa-dashboard"></i> <span>Amount History</span>
+                    <span class="pull-right-container"></span>
+                </a>
+
             </li>
 
         <?php } ?>

@@ -73,7 +73,21 @@ table, th, td {
             <b>Invoice #sb{{$order->order_id}}</b><br>
             <br>
             <b>Order ID:</b> {{$order->order_id}}<br>
-            <b>Courier :</b> {{$order->courier_service}}<br>
+            <b>Courier :</b> 
+            <?php
+            if ($orderData) {
+               echo $orderData->courier_name;
+                if ($orderData->courier_status=='2') {
+                    echo " Outside";
+                }else{
+                    echo " Inside";
+                } 
+            }else{
+                echo "From-Office";
+            }
+            
+            ?>
+            <br>
             <b>Date :</b> {{date('d/m/Y',strtotime($order->shipment_time))}}<br>
 
         </div>
@@ -125,7 +139,7 @@ table, th, td {
                         $product = single_product_information($product_id);
 
                         $name = $product->product_name;
-                        $subtotal +=$item['subtotal']*$item['qty'];
+                        $subtotal +=($item['subtotal']/$item['qty'])*$item['qty'];
                 ?>
                 <tr>
                     <td>1</td>
@@ -133,8 +147,8 @@ table, th, td {
                     <td>{{$product_code}}</td>
 
                     <td>{{$item['qty']}}</td>
-                    <td><?php echo  $item['subtotal']; ?> Tk</td>
-                    <td><?php echo  $item['subtotal']*$item['qty']; ?> Tk</td>
+                    <td><?php echo  $item['subtotal']/$item['qty']; ?> Tk</td>
+                    <td><?php echo ($item['subtotal']/$item['qty'])*$item['qty']; ?> Tk</td>
 
 
                 </tr>
@@ -177,6 +191,27 @@ table, th, td {
                         <td>{{$order->shipping_charge}} Tk</td>
 
                     </tr>
+                    <?php
+                        if($order->payWith=='bonus'){
+                    ?>
+
+                    <tr>
+                        <th>  Bonus Amount :</th>
+                        <td>- {{$order->bonus_balance}} Tk</td>
+
+                    </tr>
+                    <?php
+                        }else if($order->payWith=='cashback'){
+                    ?>
+
+                    <tr>
+                        <th>  Cashback Amount :</th>
+                        <td>- {{$order->cashback_balance}} Tk</td>
+
+                    </tr>
+                    <?php
+                        }
+                    ?>
                     <tr>
                         <th>Due:</th>
                         <td>{{$order->order_total}} Tk</td>

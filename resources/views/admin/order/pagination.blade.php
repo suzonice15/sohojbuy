@@ -96,7 +96,7 @@
 
                 ?>
                 <a  target="_blank" href="{{URL::to('/admin/vendor/view'.'/'.$vendor_id)}}">
-                     <?php echo $vendor_result->vendor_f_name; ?>
+                     <?php echo $vendor_result->vendor_shop; ?>
                 </a>
                 <br>
                 <?php } ?>

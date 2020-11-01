@@ -37,6 +37,27 @@ class AdminController extends Controller
         return view('admin.user.generel', compact('users'), $data);
     }
 
+    public function message(){
+
+        $user_id = AdminHelper::Admin_user_autherntication();
+        $url = URL::current();
+
+        if ($user_id < 1) {
+            //  return redirect('admin');
+            Redirect::to('admin')->with('redirect', $url)->send();
+
+        }
+
+        $messageInfo=DB::table('message')
+                            ->get();
+        return view('admin.user.message', compact('messageInfo'));       
+    }
+    public function messageDelete(Request $request){
+        $id=intval($request->id);
+        DB::table('message')
+                    ->where('id', $id)
+                    ->delete();
+    }
     public function general_pagination(Request $request)
     {
         if ($request->ajax()) {
@@ -71,6 +92,9 @@ class AdminController extends Controller
         $email = $request->email;
         $redirect = $request->redirect;
         $password = md5($request->password) . 'admin';
+        // echo "<pre/>";
+        // print_r($password);
+        // exit();
         $result = DB::table('admin')->where('email', $email)->where('password', $password)->first();
         if ($result) {
             $id = $result->admin_id;

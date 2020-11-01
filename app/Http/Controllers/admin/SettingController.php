@@ -98,7 +98,36 @@ class SettingController extends Controller
 
     }
 
+    public function mailSetting(){
 
+        $user_id = AdminHelper::Admin_user_autherntication();
+        $url = URL::current();
+
+        if ($user_id < 1) {
+            //  return redirect('admin');
+            Redirect::to('admin')->with('redirect', $url)->send();
+
+        }
+
+        $mailInfo=DB::table('smtp')
+                        ->first();
+        return view('admin.setting.mailSetting',compact('mailInfo'));
+    }
+    public function smtpAdd(Request $request){
+
+        $id=$request->id;
+        $data=array();
+        $data['driver']=$request->driver;
+        $data['host']=$request->host;
+        $data['port']=$request->port;
+        $data['username']=$request->username;
+        $data['password']=$request->password;
+        $data['encryption']=$request->encryption;
+        DB::table('smtp')
+            ->where('id',$id)
+            ->update($data);
+        return redirect()->back();
+    }
     public function socialSetting(Request $request)
     {
         $user_id = AdminHelper::Admin_user_autherntication();

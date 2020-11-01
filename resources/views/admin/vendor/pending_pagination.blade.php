@@ -13,6 +13,7 @@
 
             <td>{{ $product->product_price }}</td>
             <td>{{ $product->discount_price }}</td>
+            <td>{{ $product->vendor_price }}</td>
             <td>{{ $product->product_profite }} </td>
              <td><?php echo   $product->product_summary ?></td>
             <td><?php if($product->status==1) { ?>

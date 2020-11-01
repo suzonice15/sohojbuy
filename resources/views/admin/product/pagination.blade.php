@@ -10,7 +10,14 @@
                 <a href="{{ url('/') }}/{{$product->product_name}}"> {{$product->product_title}} </a>
 
             </td>
+            <?php
+            $status= Session::get('status');
+            if ($status != 'editor') {
+            ?>
             <td>{{ $product->purchase_price }}</td>
+            <?php
+                }
+            ?>
             <td>{{ $product->product_price }}</td>
             <td>{{ $product->discount_price }}</td>
             <td>{{ $product->product_profite }}</td>

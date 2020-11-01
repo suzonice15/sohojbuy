@@ -32,6 +32,7 @@
                     <th>Product Reject Note</th>
                     <th>Product Status</th>
                     <th>Registration date</th>
+                    <th>Total Click</th>
                     <th>Action</th>
                 </tr>
                 </thead>

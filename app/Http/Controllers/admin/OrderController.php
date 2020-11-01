@@ -93,26 +93,34 @@ class OrderController extends Controller
      */
     public function create()
     {
-        $user_id=AdminHelper::Admin_user_autherntication();
-        $url=  URL::current();
 
-        if($user_id < 1){
-            //  return redirect('admin');
-            Redirect::to('admin')->with('redirect',$url)->send();
+        $status= Session::get('status');
+        if ($status=='super-admin' || $status=='office-staff' || $status=='editor') {
+           
+            $user_id=AdminHelper::Admin_user_autherntication();
+            $url=  URL::current();
 
+            if($user_id < 1){
+                //  return redirect('admin');
+                Redirect::to('admin')->with('redirect',$url)->send();
+
+            }
+
+            $data['main'] = 'Orders';
+            $data['active'] = 'All orders';
+            $data['title'] = '  ';
+            $data['order']=DB::table('order_data')->where('order_id',268)->first();
+
+
+            $data['couriers']=DB::table('courier')->get();
+            $data['products']=DB::table('product')->select('product_id', 'product_title','sku')->orderby('product_id','desc')->get();
+
+
+            return view('admin.order.create', $data);
+        }else{
+            return redirect()->back();
         }
-
-        $data['main'] = 'Orders';
-        $data['active'] = 'All orders';
-        $data['title'] = '  ';
-        $data['order']=DB::table('order_data')->where('order_id',268)->first();
-
-
-        $data['couriers']=DB::table('courier')->get();
-        $data['products']=DB::table('product')->select('product_id', 'product_title','sku')->orderby('product_id','desc')->get();
-
-
-        return view('admin.order.create', $data);
+        
 
     }
     public function store(Request $request)
@@ -236,7 +244,33 @@ class OrderController extends Controller
 
     public function update(Request $request, $id)
     {
+
+        
+
         $order_number = $id;
+        $statusInfoCheck=$request->order_status;
+        //vendor amount add..
+        if ($statusInfoCheck=='completed') {
+
+        }
+        if ($statusInfoCheck=='completed') {
+            
+        $cashBackInfo=DB::table('order_data')
+                            ->where('order_id',$order_number)
+                            ->first();
+        $info=DB::table('users_public')
+                    ->where('id',$cashBackInfo->user_id)
+                    ->first();
+        if ($info) {
+            $preCash=$info->cash_back;
+            $presentCash=($preCash+$cashBackInfo->cash_back);
+            $data_customer['cash_back']=$presentCash;
+            $updateInfo=DB::table('users_public')
+                        ->where('id',$cashBackInfo->user_id)
+                        ->update($data_customer);
+        }
+        
+        }
         $data['order_status'] = $request->order_status;
 
         $order_status = $request->order_status;
@@ -396,6 +430,44 @@ class OrderController extends Controller
 
         $order_details = DB::table('order_data')->where('order_id', $order_id)->first();
 
+        if ($order_details->user_id == 0 && $order_details->order_from_affilite_id == 0) {
+            if (!empty($order_details)) {
+                $order_id = $order_details->order_id;
+                $order_items = unserialize($order_details->products);
+                if (is_array($order_items['items'])) {
+
+                    foreach ($order_items['items'] as $product_id => $item) {
+
+                        $single_product = DB::table('product')->select('product_profite', 'product_point','vendor_id','vendor_price','discount_price')->where('product_id', $product_id)->first();
+                        
+                        if ($single_product->vendor_id!=0) {
+                             $vendorInfo=DB::table('vendor')
+                                            ->where('vendor.vendor_id',$single_product->vendor_id)
+                                            ->select('vendor.life_time_earning','vendor.amount')
+                                            ->first();
+                            $vendor_life_amount=$vendorInfo->life_time_earning+$single_product->vendor_price;
+                            $adminPrice=($single_product->discount_price-$single_product->vendor_price);
+                            $adminPriceData=array();
+                            $adminPriceData['vendor_id']=$single_product->vendor_id;
+                            $adminPriceData['amount']=$adminPrice;
+                            $adminPriceData['date']=date("Y-m-d");;
+                            $adminPriceData['product_id']=$product_id;
+                            $adminPriceData['vendor_amount']=$single_product->vendor_price;
+                            DB::table('vendor_price_commution')
+                                    ->insert($adminPriceData);
+                            $vendor_amount=$vendorInfo->amount+$single_product->vendor_price;
+                            $dataUpdateVendor=array();
+                            $dataUpdateVendor['life_time_earning']=$vendor_life_amount;
+                            $dataUpdateVendor['amount']=$vendor_amount;
+                            DB::table('vendor')
+                                ->where('vendor.vendor_id',$single_product->vendor_id)
+                                ->update($dataUpdateVendor);
+                        }
+
+                    }
+                }
+            }
+        }
 
         /// affiliate order from  website
         if($order_details->user_id > 0) {
@@ -411,10 +483,31 @@ class OrderController extends Controller
                     $single_product_point = 0;
                     foreach ($order_items['items'] as $product_id => $item) {
 
-                        $single_product = DB::table('product')->select('product_profite', 'product_point')->where('product_id', $product_id)->first();
-                        //print_r($single_product);
+                        $single_product = DB::table('product')->select('product_profite', 'product_point','vendor_id','vendor_price','discount_price')->where('product_id', $product_id)->first();
                         $single_product_profit += $single_product->product_profite * $item['qty'];
-                       // $single_product_point += $single_product->product_point * $item['qty'];
+                        if ($single_product->vendor_id!=0) {
+                             $vendorInfo=DB::table('vendor')
+                                            ->where('vendor.vendor_id',$single_product->vendor_id)
+                                            ->select('vendor.life_time_earning','vendor.amount')
+                                            ->first();
+                            $vendor_life_amount=$vendorInfo->life_time_earning+$single_product->vendor_price;
+                            $adminPrice=($single_product->discount_price-$single_product->vendor_price);
+                            $adminPriceData=array();
+                            $adminPriceData['vendor_id']=$single_product->vendor_id;
+                            $adminPriceData['amount']=$adminPrice;
+                            $adminPriceData['date']=date("Y-m-d");;
+                            $adminPriceData['product_id']=$product_id;
+                            $adminPriceData['vendor_amount']=$single_product->vendor_price;
+                            DB::table('vendor_price_commution')
+                                    ->insert($adminPriceData);
+                            $vendor_amount=$vendorInfo->amount+$single_product->vendor_price;
+                            $dataUpdateVendor=array();
+                            $dataUpdateVendor['life_time_earning']=$vendor_life_amount;
+                            $dataUpdateVendor['amount']=$vendor_amount;
+                            DB::table('vendor')
+                                ->where('vendor.vendor_id',$single_product->vendor_id)
+                                ->update($dataUpdateVendor);
+                        }
 
                     }
 
@@ -443,8 +536,11 @@ class OrderController extends Controller
                     /// son income
                     if ($son) {
                         $base_name = $son->name;
-                        $data_principalblance_3['earning_balance'] = $son->earning_balance + $comission_price_3;
+
+                        //joy update $data_principalblance_3['earning_balance'] = $son->earning_balance + $comission_price_3;
+
                        // $data_principalblance_3['shopping_point'] = $son->shopping_point + $single_product_point;
+                        $data_principalblance_3['shopping_point'] = $son->shopping_point + $single_product_point;
 
                         $father_id = $son->parent_id; // got parent id for base user.
                         /// father income
@@ -463,8 +559,11 @@ class OrderController extends Controller
                 if(isset($grand_father_id)){
                     $comission_price_1=($comission_price_2*1)/100;
                     $grand_father=  DB::table('users_public')->where('id',$grand_father_id)->first();
-                    $earning_history_1['earner_name'] = $grand_father->name;
-                    $data_principalblance_1['earning_balance']= $grand_father->earning_balance+$comission_price_1;
+                    if ($grand_father) {
+                        $earning_history_1['earner_name'] = $grand_father->name;
+                        $data_principalblance_1['earning_balance']= $grand_father->earning_balance+$comission_price_1;
+                    }
+                    
                     //$data_principalblance_1['points_balance']= $grand_father->points_balance+50;
                   //  $grand_father_id = $father->parent_id; // got parent id for base user.
                 }
@@ -544,10 +643,36 @@ class OrderController extends Controller
                     $single_product_point = 0;
                     foreach ($order_items['items'] as $product_id => $item) {
 
-                        $single_product = DB::table('product')->select('product_profite', 'product_point')->where('product_id', $product_id)->first();
-                        //print_r($single_product);
+                        $single_product = DB::table('product')->select('product_profite', 'product_point','vendor_id','vendor_price','discount_price')->where('product_id', $product_id)->first();
+                        // print_r($single_product);
+                        // exit();
                       $single_product_profit += $single_product->product_profite * $item['qty'];
                         $single_product_point += $single_product->product_point * $item['qty'];
+                        if ($single_product->vendor_id!=0) {
+                            // echo $single_product->vendor_id;
+                            // exit();
+                            $vendorInfo=DB::table('vendor')
+                                            ->where('vendor.vendor_id',$single_product->vendor_id)
+                                            ->select('vendor.life_time_earning','vendor.amount')
+                                            ->first();
+                            $vendor_life_amount=$vendorInfo->life_time_earning+$single_product->vendor_price;
+                            $adminPrice=($single_product->discount_price-$single_product->vendor_price);
+                            $adminPriceData=array();
+                            $adminPriceData['vendor_id']=$single_product->vendor_id;
+                            $adminPriceData['amount']=$adminPrice;
+                            $adminPriceData['date']=date("Y-m-d");;
+                            $adminPriceData['product_id']=$product_id;
+                            $adminPriceData['vendor_amount']=$single_product->vendor_price;
+                            DB::table('vendor_price_commution')
+                                    ->insert($adminPriceData);
+                            $vendor_amount=$vendorInfo->amount+$single_product->vendor_price;
+                            $dataUpdateVendor=array();
+                            $dataUpdateVendor['life_time_earning']=$vendor_life_amount;
+                            $dataUpdateVendor['amount']=$vendor_amount;
+                            DB::table('vendor')
+                                ->where('vendor.vendor_id',$single_product->vendor_id)
+                                ->update($dataUpdateVendor);
+                        }
 
                     }
 
@@ -632,12 +757,12 @@ class OrderController extends Controller
 
                     //all insert query start from here.
                     if (!empty($baseID)) {
-                        $earning_history_3['order_id'] = $order_id;
-                        $earning_history_3['earner_name'] = $base_name;
-                        $earning_history_3['earner_id'] = $baseID;
-                        $earning_history_3['points'] = $single_product_point;
-                        $earning_history_3['earning_for_id'] = $baseID;
-                        DB::table('earning_history')->insert($earning_history_3);
+                        // $earning_history_3['order_id'] = $order_id;
+                        // $earning_history_3['earner_name'] = $base_name;
+                        // $earning_history_3['earner_id'] = $baseID;
+                        // $earning_history_3['points'] = $single_product_point;
+                        // $earning_history_3['earning_for_id'] = $baseID;
+                        // DB::table('earning_history')->insert($earning_history_3);
 
                     }
                     if (!empty($father_id)) {
@@ -682,7 +807,11 @@ class OrderController extends Controller
     public function invoicePrint($id){
 
         $data['order']=DB::table('order_data')->where('order_id',$id)->first();
-
+        $data['orderData']=DB::table('order_data as od')
+                        ->join('courier as c','c.courier_id','=','od.courier_service')
+                        ->where('order_id',$id)
+                        ->select('c.*')
+                        ->first();
 
         return view('admin.order.invoice_view', $data);
     }

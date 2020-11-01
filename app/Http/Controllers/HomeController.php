@@ -262,12 +262,11 @@ class HomeController extends Controller
     public function search_engine(Request $request)
     {
         $search_query = $request->search_query;
-
-
-
         $search_query = str_replace(" ", "%", $search_query);
-        $data['products'] = DB::table('product')->select('product_title','folder','feasured_image','product_price','sku','discount_price', 'product_name')->where('status','=',1)->orderBy('modified_time','desc')->where('sku','LIKE','%'.$search_query.'%')
-            ->orWhere('product_title','LIKE','%'.$search_query.'%')->paginate(10);
+        $data['products'] = DB::table('product')->select('product_title','folder','feasured_image','product_price','sku','discount_price', 'product_name')->where('status','=',1)->where(function ($query) use ($search_query) {
+                return $query->where('sku','LIKE','%'.$search_query.'%')
+                    ->orWhere('product_title','LIKE','%'.$search_query.'%');
+            })->orderBy('modified_time','desc')->paginate(10);
         $data['search_query']=$search_query;
 
         $view = view('website.search_engine',$data)->render();
@@ -281,7 +280,7 @@ class HomeController extends Controller
         $search_query = $request->search;
         $data['share_picture']=get_option('home_share_image');
         $search_query = str_replace(" ", "%", $search_query);
-        $products= DB::table('product')->select('product_id','product_title','folder','feasured_image','product_price','sku','discount_price', 'product_name')->where('sku','LIKE','%'.$search_query.'%')
+        $products= DB::table('product')->select('product_id','product_title','folder','feasured_image','product_price','sku','discount_price', 'product_name')->where('product.status','!=',0)->where('sku','LIKE','%'.$search_query.'%')
             ->orWhere('product_title','LIKE','%'.$search_query.'%')->get();
         if(count($products)==1){
             $product_url=url('/product').'/'.$products[0]->product_name;
@@ -352,5 +351,10 @@ $data['mobile']=$request->mobile;
             return redirect('/');
         }
     }
+    public function affilates_products(){
+        
+        return view('website.affilates_products');
+    
+}
 
 }

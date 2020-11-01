@@ -28,7 +28,7 @@
         <div class="col-sm-offset-0 col-md-12">
 
 
-            <form  name="product" action="{{ url('vendor/product/update') }}/{{ $product->product_id }}" class="form-horizontal"
+            <form  name="product" action="{{ url('/vendor/product/update') }}/{{ $product->product_id }}" class="form-horizontal"
                    method="post"
                    enctype="multipart/form-data">
                 @csrf
@@ -88,7 +88,14 @@
                                                id="discount_price"
                                                value="{{ $product->discount_price }}" autocomplete="off">
                                     </div>
-
+                                     <div class="form-group ">
+                                        <label for="discount_price"> Vendor Price</label>
+                                        <input type="text" class="form-control" readonly="" 
+                                               value="{{ $product->vendor_price }}" autocomplete="off">
+                                    </div>
+                                    <div class="form-group vendor_price_set" id="vendor_price_set">
+                                    
+                                    </div>
 
 
                                     <div class="form-group ">
@@ -452,7 +459,53 @@
     </script>
 
 
+    <script>
+        $("input[name='discount_price']").keyup(function(){
+            $.ajaxSetup({
+                  headers: {
+                      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                  }
+              });
+            var discount_price=$.trim($(this).val());
+            if (discount_price=='') {
+                $("#vendor_price_set").empty();
+               
+            }else{
 
+                var APP_URL = $('meta[name="_base_url"]').attr('content');
+                console.log(APP_URL);
+                jQuery.ajax({
+                          url: APP_URL+'/vendor/product/vendorPrice',
+                          method: 'post',
+                          data:{discount_price:discount_price},
+                          beforeSend: function() {
+                        
+                      },
+                          success: function(result){
+
+                           var res = JSON.parse(result);
+                           console.log(res);
+
+                           
+                          
+                          $("#vendor_price_set").empty();
+                          
+
+
+                           var vendor_price='<label for=""> Vendor Price</label> <input type="text" class="form-control vendor_price" name="vendor_price" id="vendor_price" value="'+res+'" autocomplete="off" readonly="">';
+                          
+                           $("#vendor_price_set").append(vendor_price);
+                         
+
+                          },
+                            error: function() {
+                              alert('Error occurs!');
+                           }
+                      });
+            }
+            
+        });
+    </script>
 
 @endsection
 

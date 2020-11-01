@@ -67,7 +67,10 @@
                                            value="SB<?php echo $sku;?>" autocomplete="off">
                                     <span class="text-danger" id="sku_error"></span>
                                 </div>
-
+                                <?php
+                                $status= Session::get('status');
+                                if ($status != 'editor') {
+                                ?>
                                 <div
                                      class="form-group ">
                                     <label for="purchase_price">Purchase Price<span
@@ -76,7 +79,9 @@
                                            id="purchase_price"
                                            value="" autocomplete="off">
                                 </div>
-
+                                <?php
+                                    }
+                                ?>
                                 <div class="form-group ">
                                     <label for="sell_price">Regular Price<span class="required">*</span></label>
                                     <input required type="text" class="form-control" name="product_price"
@@ -99,6 +104,12 @@
                                         <option value="1">Published</option>
                                         <option value="0">Unpublished</option>
                                     </select></div>
+                                <div class="form-group ">
+                                    <label for="">Hot Product</label> <select name="hot_product" class="form-control">
+                                        <option value="0">No</option>
+                                        <option value="1">Yes</option>
+                                    </select>
+                                </div>
                                 <div class="form-group ">
                                     <label for="stock_qty">Stock Qty.</label>
                                     <input type="text" class="form-control" name="product_stock" id="product_stock"
@@ -302,7 +313,7 @@
                 </div>
 
 
-                <div class="box box-primary" style="border: 2px solid #ddd;">
+                <div class="box box-primary" style="border: 2px solid #ddd;" >
                     <div class="box-header" style="background-color: #bdbdbf;">
 
                         <h3 class="box-title">Terms &amp; Conditions</h3>

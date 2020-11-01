@@ -10,7 +10,14 @@
                 <a href="<?php echo e(url('/')); ?>/<?php echo e($product->product_name); ?>"> <?php echo e($product->product_title); ?> </a>
 
             </td>
+            <?php
+            $status= Session::get('status');
+            if ($status != 'editor') {
+            ?>
             <td><?php echo e($product->purchase_price); ?></td>
+            <?php
+                }
+            ?>
             <td><?php echo e($product->product_price); ?></td>
             <td><?php echo e($product->discount_price); ?></td>
             <td><?php echo e($product->product_profite); ?></td>

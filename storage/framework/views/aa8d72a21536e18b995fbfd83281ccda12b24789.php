@@ -206,7 +206,34 @@
     </div>
     <!-- ./col -->
 </div>
-
+<div class="row">
+    <div class="col-lg-3 col-xs-6">
+        <!-- small box -->
+        <a href="<?php echo e(url('admin/vendor/published/history')); ?>" style="color: white;" >
+            <div class="small-box bg-aqua">
+                <div class="inner">
+                    <h3> <?php echo e($vendor_profit); ?></h3>
+                    <h4></h4>
+                    <p>Vendor Profit</p>
+                </div>
+                
+            </div>
+        </a>
+    </div> 
+    <div class="col-lg-3 col-xs-6">
+        <!-- small box -->
+        <a href="<?php echo e(url('admin/vendor/pending/products')); ?>" style="color: white;" >
+            <div class="small-box bg-aqua">
+                <div class="inner">
+                    <h3> <?php echo e($vendor_pending_product); ?></h3>
+                    <h4></h4>
+                    <p>Vendor Pending Product</p>
+                </div>
+                
+            </div>
+        </a>
+    </div> 
+</div>
 <?php $__env->stopSection(); ?>
 
 

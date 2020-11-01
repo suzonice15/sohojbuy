@@ -50,6 +50,10 @@
         echo $seo_description;
     }?>"/>
 
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
+        <meta name="_base_url" content="{{ url('/') }}">
+
     <meta name="robots" content="index,follow"/>
 
 
@@ -142,6 +146,7 @@
             <div class="header-top-inner">
                 <div class="cnt-account">
                     <ul class="list-unstyled">
+                        <li><a  target="_blank" href="https://sohojaffiliates.com/"><i class="icon fa fa-bullhorn"></i>Affiliate</a></li>
                         <li><a href="{{url('/vendor/login')}}"><i class="icon fa fa-user"></i>Vendor</a></li>
                         <li><a href="{{url('/track-your-order')}}"><i class="icon fa fa-search"></i>Track Order</a></li>
                         <li><a href="{{ url('/') }}/wishlist"><i class="icon fa fa-heart"></i>Wishlist</a></li>

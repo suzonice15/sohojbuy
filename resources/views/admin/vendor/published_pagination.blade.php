@@ -13,6 +13,7 @@
 
             <td>{{ $product->product_price }}</td>
             <td>{{ $product->discount_price }}</td>
+            <td>{{ $product->vendor_price }}</td>
 
             <td>{{ $product->product_profite }} </td>
             <td><?php echo   $product->product_summary ?></td>
@@ -38,7 +39,7 @@
                 Unpublished
                 </a>
                     <?php } ?>
-                <a  target="_blank" title="edit" href="{{ url('admin/product') }}/{{ $product->product_id }}">
+                <a  target="_blank" title="edit" href="{{ url('admin/vendor/product') }}/{{ $product->product_id }}">
                     <span class="glyphicon glyphicon-edit btn btn-success"></span>
                 </a>
 

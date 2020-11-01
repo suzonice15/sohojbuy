@@ -61,6 +61,7 @@
                         <select name="status" id="status" class="form-control">
                             <option <?php if($user->status=='office-staff') { echo "selected";}  ?> value="office-staff" style="background-color: red;">Office Stuf</option>
                             <option <?php if($user->status=='super-admin') { echo "selected";}  ?> value="super-admin">Super admin</option>
+                            <option <?php if($user->status=='editor') { echo "selected";}  ?> value="editor">Editor</option>
                         </select>
                     </div>
                 <?php } ?>

@@ -1,6 +1,24 @@
 @extends('website.master')
 @section('mainContent')
+<style type="text/css">
+    @media print {
+  body * {
+    visibility: hidden;
+  }
+  #printInvoice, #printInvoice * {
+    visibility: visible;
+  }
+  #notPrint, #notPrint *{
+    visibility: hidden;
+  }
+  #printInvoice {
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
 
+}
+</style>
     <div class="container">
         <div class="row">
             <div class="col-sm-3">
@@ -52,7 +70,7 @@
             <div class="col-md-3">
             </div>
           <?php if(isset($order)) { ?>
-            <div class="col-md-6">
+            <div class="col-md-6" id="printInvoice">
                 <div class="panel-body">
                     <div class="cart-info">
 
@@ -199,6 +217,7 @@
                         </table>
                     </div>
                 </div>
+                <button  style="margin-left: 204px;margin-bottom: 2px;" onclick="window.print()" class="btn btn-success print  d-print-none" id="notPrint"><i class="fa fa-download"></i>DOWNLOAD</button>
             </div>
 <?php } else { ?>
             <?php if(isset($mobile)) { ?>

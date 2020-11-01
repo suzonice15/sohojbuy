@@ -1,7 +1,122 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="fa2b2b47-53b5-4eec-a04a-0aa477ad2326" name="Default" comment="" />
+    <list default="true" id="fa2b2b47-53b5-4eec-a04a-0aa477ad2326" name="Default" comment="">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/uploads/109452565_202733927830285_5776010695072928463_n.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/uploads/118/118.Caffpture.PNG" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/uploads/118/122.Nush15 (1).jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/uploads/118/small/118.Caffpture.PNG" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/uploads/118/small/122.Nush15 (1).jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/uploads/118/thumb/118.Caffpture.PNG" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/uploads/118/thumb/122.Nush15 (1).jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/uploads/119/119.Caffpture.PNG" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/uploads/119/small/119.Caffpture.PNG" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/uploads/119/thumb/119.Caffpture.PNG" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/uploads/120/120.Caffpture.PNG" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/uploads/120/small/120.Caffpture.PNG" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/uploads/120/thumb/120.Caffpture.PNG" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/uploads/121/121.Caffpture.PNG" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/uploads/121/small/121.Caffpture.PNG" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/uploads/121/thumb/121.Caffpture.PNG" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/uploads/152.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/uploads/1595764176.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/uploads/bottom.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/uploads/category/1595763697.PNG" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/uploads/category/1595764176.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/uploads/category/1595766017.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/uploads/category/1595766198.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/uploads/sliders/1594817169.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/uploads/sliders/1594817556.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/uploads/users/user1598095672.PNG" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/uploads/users/user1598095979.PNG" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/uploads/users/user1598096181.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/uploads/users/user1598096212.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/app/public/.gitignore" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/sessions/.gitignore" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/0292d2e359a27820011c2f9a8e1687d957f3d7f7.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/11158460f9c5da9791872b4fa2947033c36c68f5.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/2af92f2f3b9c6a892a4f1e07f9b3dafda3129f92.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/306cf0f068b59f010128fed1db2ffbc7f2ff86f0.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/309bcd8acfdb19b42afca5b43f7af5b8f89aa2ba.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/38ce346ef4ee30189741ded073f80a69379bebb7.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/3b517cf6243b5c3cc6bc1b3363a40624043511ff.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/539925511062dae4226ad91c60c27171667d1266.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/555245d730027913c0282158c4fc47c35792c73c.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/68b73a26a59f19d910dc411c44bb555fe89772a6.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/6f9d99bdd1a53cf1b2b3d6e17bd0bf17f0ba29b8.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/6fe3edcb19f8919f19f95bf0d639b10fae3d3a54.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/70922c44fe9a060fd3adbe9138e10d51cc8868f9.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/7704256030e7d5e358a741062c63c78d9e4bb34a.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/86e38c502f51449b2fd05a490c4423d40f7431e4.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/8b21ab2bf8b0fcf16c0920386ffb3ab8bb37ec7e.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/934a7df04de51b0dbed31868e0bde65ac0b64273.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/95cb460d8294f383649d3d77ddfd3840aa1b198c.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/9f4932b53322e663177c3aed630490fe2071ed4e.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/acf24cb9428749e2571095ead13efc7fc48bc4f8.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/b0bee0e3b36bee8130195e4079b13f9e565da686.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/bc4f5aaac66ebbca7cad9d627dc83bc159bd3d5a.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/c59456c271897f692543d12cbd1a0f59a453d1f9.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/ca35720cdd400a5084a34474ba1b1884a362e6a5.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/d8d0c4afc789a693e40dde1e010c31297ff3b58d.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/db3642503f402f204de094ddab520f0dc9b0509e.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/e981976312aaa277a3ae18e9a21870b4c94b7120.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/eb7acdf3eb2ed841464c42c28066ec0c3ebad96f.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/framework/views/f48cfc308bad5b8071b09e2ae6f37c7395afaba5.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/logs/.gitignore" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/uploads/108/108.lunch box.jpg" afterPath="$PROJECT_DIR$/public/uploads/108/108.lunch box.jpg" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/uploads/108/small/108.lunch box.jpg" afterPath="$PROJECT_DIR$/public/uploads/108/small/108.lunch box.jpg" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/uploads/108/thumb/108.lunch box.jpg" afterPath="$PROJECT_DIR$/public/uploads/108/thumb/108.lunch box.jpg" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/uploads/logo.png" afterPath="$PROJECT_DIR$/public/uploads/logo.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Controllers/CheckOutController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/CheckOutController.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Controllers/HomeController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/HomeController.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Controllers/VendorController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/VendorController.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Controllers/admin/AdminController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/admin/AdminController.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Controllers/admin/AdminVendorController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/admin/AdminVendorController.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Controllers/admin/DashboardController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/admin/DashboardController.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Controllers/admin/OrderController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/admin/OrderController.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Controllers/admin/ProductController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/admin/ProductController.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Controllers/admin/SettingController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/admin/SettingController.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Providers/RouteServiceProvider.php" afterPath="$PROJECT_DIR$/app/Providers/RouteServiceProvider.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/app.php" afterPath="$PROJECT_DIR$/config/app.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/admin/order/invoice_view.blade.php" afterPath="$PROJECT_DIR$/resources/views/admin/order/invoice_view.blade.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/admin/order/pagination.blade.php" afterPath="$PROJECT_DIR$/resources/views/admin/order/pagination.blade.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/admin/product/create.blade.php" afterPath="$PROJECT_DIR$/resources/views/admin/product/create.blade.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/admin/product/edit.blade.php" afterPath="$PROJECT_DIR$/resources/views/admin/product/edit.blade.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/admin/product/index.blade.php" afterPath="$PROJECT_DIR$/resources/views/admin/product/index.blade.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/admin/product/pagination.blade.php" afterPath="$PROJECT_DIR$/resources/views/admin/product/pagination.blade.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/admin/user/edit.blade.php" afterPath="$PROJECT_DIR$/resources/views/admin/user/edit.blade.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/admin/vendor/pending_pagination.blade.php" afterPath="$PROJECT_DIR$/resources/views/admin/vendor/pending_pagination.blade.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/admin/vendor/published_pagination.blade.php" afterPath="$PROJECT_DIR$/resources/views/admin/vendor/published_pagination.blade.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/admin/vendor/vendor_pending_product_edit.blade.php" afterPath="$PROJECT_DIR$/resources/views/admin/vendor/vendor_pending_product_edit.blade.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/admin/vendor/vendor_pending_products.blade.php" afterPath="$PROJECT_DIR$/resources/views/admin/vendor/vendor_pending_products.blade.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/admin/vendor/vendor_published_products.blade.php" afterPath="$PROJECT_DIR$/resources/views/admin/vendor/vendor_published_products.blade.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/admin/vendor/vendor_user_edit.blade.php" afterPath="$PROJECT_DIR$/resources/views/admin/vendor/vendor_user_edit.blade.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/admin/vendor/vendor_users.blade.php" afterPath="$PROJECT_DIR$/resources/views/admin/vendor/vendor_users.blade.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/layouts/dashboard.blade.php" afterPath="$PROJECT_DIR$/resources/views/layouts/dashboard.blade.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/layouts/includes/header.blade.php" afterPath="$PROJECT_DIR$/resources/views/layouts/includes/header.blade.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/layouts/includes/sidebar.blade.php" afterPath="$PROJECT_DIR$/resources/views/layouts/includes/sidebar.blade.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/layouts/vendor_dashboard.blade.php" afterPath="$PROJECT_DIR$/resources/views/layouts/vendor_dashboard.blade.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/website/checkout.blade.php" afterPath="$PROJECT_DIR$/resources/views/website/checkout.blade.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/website/includes/footer.blade.php" afterPath="$PROJECT_DIR$/resources/views/website/includes/footer.blade.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/website/includes/header.blade.php" afterPath="$PROJECT_DIR$/resources/views/website/includes/header.blade.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/website/search_engine.blade.php" afterPath="$PROJECT_DIR$/resources/views/website/search_engine.blade.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/website/track_order_page.blade.php" afterPath="$PROJECT_DIR$/resources/views/website/track_order_page.blade.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/website/vendor/add_product.blade.php" afterPath="$PROJECT_DIR$/resources/views/website/vendor/add_product.blade.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/website/vendor/login_form.blade.php" afterPath="$PROJECT_DIR$/resources/views/website/vendor/login_form.blade.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/website/vendor/product_list.blade.php" afterPath="$PROJECT_DIR$/resources/views/website/vendor/product_list.blade.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/website/vendor/product_pagination.blade.php" afterPath="$PROJECT_DIR$/resources/views/website/vendor/product_pagination.blade.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/website/vendor/product_update.blade.php" afterPath="$PROJECT_DIR$/resources/views/website/vendor/product_update.blade.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/website/vendor/sign_up_form.blade.php" afterPath="$PROJECT_DIR$/resources/views/website/vendor/sign_up_form.blade.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/website/vendor/vendor_shop_ajax.blade.php" afterPath="$PROJECT_DIR$/resources/views/website/vendor/vendor_shop_ajax.blade.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/routes/web.php" afterPath="$PROJECT_DIR$/routes/web.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/storage/framework/views/2096912712428f045ac3685efcc47dc84bb8633e.php" afterPath="$PROJECT_DIR$/storage/framework/views/2096912712428f045ac3685efcc47dc84bb8633e.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/storage/framework/views/6b2a9075f849141ba90a924a2215ec5e92db1917.php" afterPath="$PROJECT_DIR$/storage/framework/views/6b2a9075f849141ba90a924a2215ec5e92db1917.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/storage/framework/views/79a0655b79be386f29bbc75fb20762b67a5c70c5.php" afterPath="$PROJECT_DIR$/storage/framework/views/79a0655b79be386f29bbc75fb20762b67a5c70c5.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/storage/framework/views/923bea37f36568643b856177a6f49765b5f780d3.php" afterPath="$PROJECT_DIR$/storage/framework/views/923bea37f36568643b856177a6f49765b5f780d3.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/storage/framework/views/aa8d72a21536e18b995fbfd83281ccda12b24789.php" afterPath="$PROJECT_DIR$/storage/framework/views/aa8d72a21536e18b995fbfd83281ccda12b24789.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/storage/framework/views/bfe919063ace7c02029a2074695e600ac0cc05e4.php" afterPath="$PROJECT_DIR$/storage/framework/views/bfe919063ace7c02029a2074695e600ac0cc05e4.php" />
+    </list>
     <ignored path="suhojbuy.com.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path=".idea/dataSources.local.xml" />
@@ -25,7 +140,7 @@
       <file leaf-file-name="OrderController.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Http/Controllers/admin/OrderController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="610">
+            <state relative-caret-position="969">
               <caret line="64" column="45" selection-start-line="64" selection-start-column="45" selection-end-line="64" selection-end-column="45" />
               <folding />
             </state>
@@ -35,18 +150,8 @@
       <file leaf-file-name="invoice_view.blade.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/resources/views/admin/order/invoice_view.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="772">
-              <caret line="75" column="54" selection-start-line="75" selection-start-column="39" selection-end-line="75" selection-end-column="54" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="helpers.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/helpers.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="340">
-              <caret line="20" column="35" selection-start-line="20" selection-start-column="9" selection-end-line="20" selection-end-column="35" />
+            <state relative-caret-position="1275">
+              <caret line="75" column="29" selection-start-line="75" selection-start-column="29" selection-end-line="75" selection-end-column="29" />
               <folding />
             </state>
           </provider>
@@ -55,15 +160,25 @@
       <file leaf-file-name="web.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/routes/web.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="403">
-              <caret line="114" column="84" selection-start-line="114" selection-start-column="84" selection-end-line="114" selection-end-column="84" />
+            <state relative-caret-position="250">
+              <caret line="15" column="40" selection-start-line="15" selection-start-column="40" selection-end-line="15" selection-end-column="40" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="User.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/User.php">
+      <file leaf-file-name="HomeController.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/HomeController.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="664">
+              <caret line="355" column="47" selection-start-line="355" selection-start-column="29" selection-end-line="355" selection-end-column="47" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="affilates_products.blade.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/resources/views/website/affilates_products.blade.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="0">
               <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -72,27 +187,17 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AdminHelper.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/Helpers/AdminHelper.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
-              <caret line="18" column="5" selection-start-line="18" selection-start-column="5" selection-end-line="18" selection-end-column="5" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="home.blade.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/resources/views/website/home.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="338">
+            <state relative-caret-position="476">
               <caret line="28" column="50" selection-start-line="28" selection-start-column="50" selection-end-line="28" selection-end-column="50" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="pagination.blade.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="pagination.blade.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/resources/views/admin/order/pagination.blade.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="561">
@@ -102,10 +207,22 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="api.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/routes/api.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="34">
+              <caret line="2" column="4" selection-start-line="2" selection-start-column="4" selection-end-line="2" selection-end-column="4" />
+              <folding>
+                <element signature="e#7#35#0#PHP" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="index.blade.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/resources/views/admin/order/index.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="287">
+            <state relative-caret-position="1462">
               <caret line="86" column="54" selection-start-line="86" selection-start-column="34" selection-end-line="86" selection-end-column="54" />
               <folding />
             </state>
@@ -115,7 +232,7 @@
       <file leaf-file-name="edit.blade.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/resources/views/admin/order/edit.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="109">
+            <state relative-caret-position="3009">
               <caret line="177" column="76" selection-start-line="177" selection-start-column="63" selection-end-line="177" selection-end-column="76" />
               <folding />
             </state>
@@ -173,14 +290,14 @@
         <option value="$PROJECT_DIR$/resources/views/website/all_products.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/website/includes/header.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/admin/order/edit.blade.php" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/HomeController.php" />
         <option value="$PROJECT_DIR$/resources/views/website/product.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/website/home.blade.php" />
         <option value="$USER_HOME$/Desktop/zaman/index.html" />
         <option value="$PROJECT_DIR$/resources/views/admin/order/index.blade.php" />
-        <option value="$PROJECT_DIR$/routes/web.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/admin/OrderController.php" />
         <option value="$PROJECT_DIR$/resources/views/admin/order/pagination.blade.php" />
+        <option value="$PROJECT_DIR$/routes/web.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/HomeController.php" />
       </list>
     </option>
   </component>
@@ -226,6 +343,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scratches" />
       <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
@@ -561,14 +679,14 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../sheba" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="settings.editor.selected.configurable" value="vcs.Git" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
+    <property name="js-jscs-nodeInterpreter" value="C:\Program Files\nodejs\node.exe" />
   </component>
   <component name="RunManager">
     <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug">
@@ -646,11 +764,12 @@
       <workItem from="1598588529035" duration="2244000" />
       <workItem from="1598591146505" duration="6092000" />
       <workItem from="1598773276095" duration="8207000" />
+      <workItem from="1603633417828" duration="922000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="192011000" />
+    <option name="totallyTimeSpent" value="192933000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="10" y="20" width="1260" height="944" extended-state="0" />
@@ -692,20 +811,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/Providers/AppServiceProvider.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="459">
-          <caret line="28" column="44" selection-start-line="28" selection-start-column="44" selection-end-line="28" selection-end-column="44" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Providers/BroadcastServiceProvider.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/website/home_page_ajax_category.blade.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1173">
@@ -958,18 +1063,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/HomeController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="287">
-          <caret line="152" column="221" selection-start-line="152" selection-start-column="221" selection-end-line="152" selection-end-column="221" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/website/product.blade.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="10744">
           <caret line="635" column="119" selection-start-line="635" selection-start-column="119" selection-end-line="635" selection-end-column="119" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1001,21 +1098,20 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="9435">
           <caret line="555" column="3" selection-start-line="555" selection-start-column="3" selection-end-line="555" selection-end-column="3" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/admin/order/invoice_view.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="772">
-          <caret line="75" column="54" selection-start-line="75" selection-start-column="39" selection-end-line="75" selection-end-column="54" />
+        <state relative-caret-position="1275">
+          <caret line="75" column="29" selection-start-line="75" selection-start-column="29" selection-end-line="75" selection-end-column="29" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/admin/order/edit.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="109">
+        <state relative-caret-position="3009">
           <caret line="177" column="76" selection-start-line="177" selection-start-column="63" selection-end-line="177" selection-end-column="76" />
           <folding />
         </state>
@@ -1023,7 +1119,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/website/home.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="338">
+        <state relative-caret-position="476">
           <caret line="28" column="50" selection-start-line="28" selection-start-column="50" selection-end-line="28" selection-end-column="50" />
           <folding />
         </state>
@@ -1031,23 +1127,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/admin/order/index.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="287">
+        <state relative-caret-position="1462">
           <caret line="86" column="54" selection-start-line="86" selection-start-column="34" selection-end-line="86" selection-end-column="54" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/routes/web.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="403">
-          <caret line="114" column="84" selection-start-line="114" selection-start-column="84" selection-end-line="114" selection-end-column="84" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/admin/OrderController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="610">
+        <state relative-caret-position="969">
           <caret line="64" column="45" selection-start-line="64" selection-start-column="45" selection-end-line="64" selection-end-column="45" />
           <folding />
         </state>
@@ -1057,6 +1145,40 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="561">
           <caret line="77" column="21" selection-start-line="77" selection-start-column="21" selection-end-line="77" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/api.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="4" selection-start-line="2" selection-start-column="4" selection-end-line="2" selection-end-column="4" />
+          <folding>
+            <element signature="e#7#35#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/web.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="250">
+          <caret line="15" column="40" selection-start-line="15" selection-start-column="40" selection-end-line="15" selection-end-column="40" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/HomeController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="664">
+          <caret line="355" column="47" selection-start-line="355" selection-start-column="29" selection-end-line="355" selection-end-column="47" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/website/affilates_products.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>

@@ -50,6 +50,26 @@ class ProductController extends Controller
         return view('admin.product.index', compact('products'), $data);
     }
 
+    public function staffProduct()
+    {
+        $user_id = AdminHelper::Admin_user_autherntication();
+        $url = URL::current();
+
+        if ($user_id < 1) {
+            //  return redirect('admin');
+            Redirect::to('admin')->with('redirect', $url)->send();
+
+        }
+
+
+        $data['main'] = 'Products';
+        $data['active'] = 'All Products';
+        $data['title'] = '  ';
+        $products = DB::table('product')->where('vendor_id',0)->where('purchase_price','')->where('status',0)->orderBy('product_id', 'desc')->paginate(10);
+
+        return view('admin.product.staffProduct', compact('products'), $data);
+    }
+
     public function pagination(Request $request)
     {
         if ($request->ajax()) {
@@ -143,8 +163,15 @@ class ProductController extends Controller
 
         $data['folder'] = $request->folder;
         $data['product_name'] = $request->product_name;
+        $data['hot_product'] = $request->hot_product;
         $data['product_price'] = $request->product_price;
+        $status= Session::get('status');
+        if ($status != 'editor') {
         $data['purchase_price'] = $request->purchase_price;
+        $data['status'] = $request->status;
+        }else{
+            $data['status'] = 0;
+        }
         $data['discount_price'] = $request->discount_price;
         $data['product_specification'] = $request->product_specification;
         $data['delivery_in_dhaka'] = $request->delivery_in_dhaka;
@@ -157,7 +184,7 @@ class ProductController extends Controller
         $data['stock_alert'] = $request->stock_alert;
         $data['product_video'] = $request->product_video;
         $data['product_type'] = $request->product_type;
-        $data['status'] = $request->status;
+        
         $data['created_time'] = date('Y-m-d H:i:s');
         $data['modified_time'] = date('Y-m-d H:i:s');
         $data['seo_title'] = $request->seo_title;
@@ -188,7 +215,7 @@ class ProductController extends Controller
             $featured_image = $product_id . '.' . $featured_image_orgianal->getClientOriginalName();
             $destinationPath = $orginalpath;
             $resize_image = Image::make($featured_image_orgianal->getRealPath());
-            $resize_image->resize(700, 700, function ($constraint) {
+            $resize_image->resize(1000, 1000, function ($constraint) {
 
             })->save($destinationPath . '/' . $featured_image);
 
@@ -415,7 +442,13 @@ class ProductController extends Controller
         $data['folder'] = $request->folder;
         $data['product_name'] = $request->product_name;
         $data['product_price'] = $request->product_price;
+        $status= Session::get('status');
+        if ($status != 'editor') {
         $data['purchase_price'] = $request->purchase_price;
+        $data['status'] = $request->status;
+        }else{
+            $data['status'] = 0;
+        }
         $data['discount_price'] = $request->discount_price;
         $data['product_specification'] = $request->product_specification;
         $data['delivery_in_dhaka'] = $request->delivery_in_dhaka;
@@ -428,7 +461,6 @@ class ProductController extends Controller
 //        $data['stock_alert']=$request->stock_alert;
         $data['vendor_id'] = 0;
         $data['product_video'] = $request->product_video;
-        $data['status'] = $request->status;
         $data['created_time'] = date('Y-m-d H:i:s');
         $data['modified_time'] = date('Y-m-d H:i:s');
         $data['seo_title'] = $request->seo_title;

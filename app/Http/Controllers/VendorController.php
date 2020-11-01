@@ -58,7 +58,7 @@ class VendorController extends Controller
     }
 
 public function shop($vendor_link){
-    $data['products'] =DB::table('product')->join('vendor','vendor.vendor_id','=','product.vendor_id')->where('vendor_link',$vendor_link)->orderBy('modified_time','DESC')->paginate(18);
+    $data['products'] =DB::table('product')->join('vendor','vendor.vendor_id','=','product.vendor_id')->where('vendor_link',$vendor_link)->where('product.status','!=',0)->orderBy('modified_time','DESC')->paginate(18);
   $data['vendor_link']=$vendor_link;
 
     $data['seo_title']=get_option('home_seo_title');
@@ -101,8 +101,215 @@ public function shop($vendor_link){
 
     }
 
+    public function vendorPrice(Request $request){
+        $discount_price=intval($request->discount_price);
+        $id=Session::get('id');
+        $vendorInfo=DB::table('vendor')
+                        ->where('vendor_id',$id)
+                        ->first();
+        $percentInfo=$vendorInfo->vendor_percent;
+        if ($percentInfo=='') {
+           echo json_encode($discount_price);
+        }else{
+
+            $finalAmount=($discount_price*$percentInfo)/100;
+            $retuenAmount=($discount_price-$finalAmount);
+            echo json_encode($retuenAmount);
+        }
+    }
+
+    public function vendorPriceAdmin(Request $request){
+        $discount_price=intval($request->discount_price);
+        $id=$request->vendor_id;
+        $vendorInfo=DB::table('vendor')
+                        ->where('vendor_id',$id)
+                        ->first();
+        $percentInfo=$vendorInfo->vendor_percent;
+        if ($percentInfo=='') {
+           echo json_encode($discount_price);
+        }else{
+
+            $finalAmount=($discount_price*$percentInfo)/100;
+            $retuenAmount=($discount_price-$finalAmount);
+            echo json_encode($retuenAmount);
+        }
+    }
+
+    public function bankAccount(){
+        $data['bankInfo']=DB::table('vendor')->where('vendor_id',Session::get('id'))->first();
+        // echo "<pre/>";
+        // print_r($bankInfo);
+        // exit();
+        return view('website.vendor.bankAccount', $data);
+
+    }
+
+    public function vandorWithdrowAmount(){
+
+        $id=Session::get('id');
+        $data['vandorInfo']=DB::table('vendor')
+                        ->where('vendor_id',$id)
+                        ->first();
+        $data['withdrawInfo']=DB::table('vendor_withdraw_amount')
+                        ->where('vendorId',$id)
+                        ->get();
+        return view('website.vendor.vandorWithdrowAmount', $data);
+    }
+
+    public function changeShopName(){
+
+        $id=Session::get('id');
+        $vandorInfo=DB::table('vendor')
+                        ->where('vendor_id',$id)
+                        ->first();
+        return view('website.vendor.changeShopName',compact('vandorInfo'));
+    }
+
+    public function amountHistory(){
+        $id=Session::get('id');
+        $historyInfo=DB::table('vendor_price_commution as vp')
+                            ->join('vendor as ven','ven.vendor_id','=','vp.vendor_id')
+                            ->join('product as p','p.product_id','=','vp.product_id')
+                            ->select('ven.vendor_f_name','ven.vendor_shop','vp.*','p.product_title')
+                            ->where('vp.vendor_id',$id)
+                            ->get();
+        return view('website.vendor.amountHistory',compact('historyInfo'));
+    }
+
+    public function changeShopNameUpdate(Request $request){
+        $data=array();
+        $data['request_shop_name']=$request->request_shop_name;
+        $data['request_shop_link']=$request->request_shop_link;
+        $data['request_status']='1';
+        DB::table('vendor')->where('vendor_id',Session::get('id'))->update($data);
+        return redirect('vendor/change-shop-name')->with('w_success','Your request send successfully done.');
+    }
+
+    public function insertVandorWithdrowAmount(Request $request){
+
+        $id=Session::get('id');
+        $amountInfo=DB::table('vendor')
+                            ->where('vendor_id',$id)
+                            ->first();
+        $currentAmount=$amountInfo->amount;
+        $requestAmount=$request->withdrawAmount;
+        if ($currentAmount<$requestAmount) {
+           return redirect('vendor/withdrow-amount')->with('w_error','Un-sufficiant Balance');
+        }else{
+             $finalAmount=($currentAmount-$requestAmount);
+             $dataUpdate['amount']=$finalAmount;
+             DB::table('vendor')->where('vendor_id',Session::get('id'))->update($dataUpdate);
+             $data['vendorId']=$id;
+             $data['withdrawAmount']=$requestAmount;
+             $data['date']=date("Y/m/d");
+             $data['accountStatus']=$request->accountStatus;
+             DB::table('vendor_withdraw_amount')->insert($data);
+             return redirect('vendor/withdrow-amount')->with('w_success','Your request send successfully done.');
+        }
+        
+    }
+
+    public function mobile_update(Request $request){
+        $data['m_name']=$request->m_name;
+        $data['m_number']=$request->m_number;
+        $data['m_type']=$request->m_type;
+        $data['m_service']=$request->m_service;
+        $mobile_row = DB::table('vendor')->where('vendor_id',Session::get('id'))->first();
+        if($mobile_row){
+            DB::table('vendor')->where('vendor_id',Session::get('id'))->update($data);
+        } else {
+
+            DB::table('vendor')->insert($data);
+
+        }
+
+        return redirect('vendor/bank-account');
+    }
+
+    public function bank_update(Request $request){
+        $data['b_name']=$request->b_name;
+        $data['b_number']=$request->b_number;
+        $data['b_branch']=$request->b_branch;
+        $data['b_bank']=$request->b_bank;
+        $mobile_row = DB::table('vendor')->where('vendor_id',Session::get('id'))->first();
+        if($mobile_row){
+            DB::table('vendor')->where('vendor_id',Session::get('id'))->update($data);
+        } else {
+
+            DB::table('vendor')->insert($data);
+
+        }
+
+        return redirect('vendor/bank-account');
+    }
+    public function editVendorProfile($id){
+        $data['user'] = DB::table('vendor')->where('vendor_id', $id)->first();
+        return view('website.vendor.editProfile', $data);
+    }
+
+    public function profileUpdate(Request $request, $id)
+    {
 
 
+        $data['vendor_f_name'] = $request->vendor_f_name;
+        $data['vendor_l_name'] = $request->vendor_l_name;
+        $data['vendor_email'] = $request->vendor_email;
+        $data['vendor_phone'] = $request->vendor_phone;
+        $data['vendor_address'] = $request->vendor_address;
+        // $old_picture = public_path('/uploads/users') . '/' . $request->old_picture;
+        $password_id = $request->vendor_password;
+        if ($password_id) {
+            $password = md5($request->vendor_password);
+            $data['vendor_password'] = $password . 'vendor';
+        }
+        $image = $request->file('vendor_image');
+        if ($image) {
+            
+            $image_name = rand(1,10) . '.' . $image->getClientOriginalExtension();
+
+            $destinationPath = public_path('/uploads/users');
+
+            $resize_image = Image::make($image->getRealPath());
+
+            $resize_image->save($destinationPath . '/' . $image_name);
+            $data['vendor_image'] = $image_name;
+        }
+        $image_nid = $request->file('nid_image');
+        if ($image_nid) {
+            
+            $image_name_nid = rand(1,10) . '.' . $image_nid->getClientOriginalExtension();
+
+            $destinationPath_nid = public_path('/uploads/users');
+
+            $resize_image_nid = Image::make($image_nid->getRealPath());
+
+            $resize_image_nid->save($destinationPath_nid . '/' . $image_name_nid);
+            $data['nid_image'] = $image_name_nid;
+        }
+
+        $image_bank = $request->file('bank_image');
+        if ($image_bank) {
+           
+            $image_name_bank = rand(1,10) . '.' . $image_bank->getClientOriginalExtension();
+
+            $destinationPath_bank = public_path('/uploads/users');
+
+            $resize_image_bank = Image::make($image_bank->getRealPath());
+
+            $resize_image_bank->save($destinationPath_bank . '/' . $image_name_bank);
+            $data['bank_image'] = $image_name_bank;
+        }
+        $result = DB::table('vendor')->where('vendor_id', $id)->update($data);
+        if ($result) {
+            return redirect('/dashboard')
+                ->with('success', 'Updated successfully.');
+        } else {
+            return redirect('/dashboard')
+                ->with('error', 'No successfully.');
+        }
+
+
+    }
     public function sign_up_form()
     {
 
@@ -136,12 +343,12 @@ public function shop($vendor_link){
 
             }
             $name = $result->vendor_f_name;
-//            $picture = $result->picture;
+            $picture = $result->vendor_image;
             $status = 'vendor';
             Session::put('id', $id);
             Session::put('status', $status);
             Session::put('name', $name);
-//            Session::put('picture', $picture);
+            Session::put('picture', $picture);
 
 
                 return redirect('dashboard');
@@ -157,7 +364,9 @@ public function shop($vendor_link){
 
     }
 
-
+    public function forgetPassword(){
+         return view('website.vendor.forget_password', $data);
+    }
     public function store(Request $request){
         $request->validate([
 
@@ -197,7 +406,10 @@ public function shop($vendor_link){
         $password = md5($request->vendor_password);
         $data['vendor_password'] = $password . 'vendor';
         $data['registered_date'] = date('Y-m-d h:i:s');
-
+        // $vendor_link_show=$vendor_link[4];
+        // echo "<pre/>";
+        // print_r($request->vendor_link);
+        // exit();
        $vendor_link_id=$vendor_link[4];
 
         $vendor_email=  DB::table('vendor')->where('vendor_email',$request->vendor_email)->first();
@@ -214,7 +426,7 @@ public function shop($vendor_link){
         }
         if($vendor_link_id_data){
             return redirect('vendor/form')
-                ->with('error', 'This This Vendor Shop Link all ready registered');
+                ->with('error', 'This Vendor Shop Link all ready registered');
         }
 
 
@@ -243,13 +455,18 @@ public  function all_orders(){
     $data['main'] = 'Vendors';
     $data['active'] = 'All Orders';
     $data['title'] = '  ';
-
     $orders = DB::table('vendor_orders')->join('order_data','order_data.order_id','=','vendor_orders.order_id')->where('vendor_orders.vendor_id',Session::get('id'))->orderBy('vendor_orders.order_id', 'desc') ->groupBy('vendor_orders.order_id')->get();
+    
 
     return view('website.vendor.vendor_all_orders', compact('orders'), $data);
 }
     public function product_store(Request $request)
     {
+
+        // $vendorPrice=$request->vendor_price;
+        // echo "<pre/>";
+        // print_r($vendorPrice);
+        // exit();
         date_default_timezone_set('Asia/Dhaka');
 
         $media_path = 'uploads/' . $request->folder;
@@ -292,6 +509,7 @@ public  function all_orders(){
         $data['product_price'] = $request->product_price;
        // $data['purchase_price'] = $request->purchase_price;
         $data['discount_price'] = $request->discount_price;
+        $data['vendor_price'] = $request->vendor_price;
         $data['product_summary'] = $request->product_summary;
         $data['product_description'] = $request->product_description;
         $data['product_terms'] = $request->product_terms;
@@ -475,7 +693,7 @@ public  function all_orders(){
 
         }
         if ($product_id) {
-            return redirect('vendor/products')
+            return redirect('vendor/product/create')
                 ->with('success', 'created successfully.');
         } else {
             return redirect('vendor/product/create')
@@ -556,8 +774,9 @@ public  function all_orders(){
         $data['folder'] = $request->folder;
         $data['product_name'] = $request->product_name;
         $data['product_price'] = $request->product_price;
-      //  $data['purchase_price'] = $request->purchase_price;
+       // $data['purchase_price'] = $request->purchase_price;
         $data['discount_price'] = $request->discount_price;
+        $data['vendor_price'] = $request->vendor_price;
         $data['product_summary'] = $request->product_summary;
         $data['product_description'] = $request->product_description;
         $data['product_terms'] = $request->product_terms;
@@ -753,10 +972,10 @@ public  function all_orders(){
 
 
         if ($product_id) {
-            return redirect('vendor/products')
+            return redirect('/vendor/products/show')
                 ->with('success', 'Updated successfully.');
         } else {
-            return redirect('vendor/product/create')
+            return redirect('/vendor/products/show')
                 ->with('error', 'No successfully.');
         }
 

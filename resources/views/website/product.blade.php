@@ -688,7 +688,7 @@
                                         <div class="product-tab">
 
                                             <iframe width="500" height="345"
-                                                    src="  <?php echo $product->product_video; ?>">
+                                                    src="<?php echo $product->product_video;?>">
                                             </iframe>
 
                                         </div>

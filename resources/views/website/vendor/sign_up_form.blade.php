@@ -205,7 +205,7 @@
                             <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
                             <textarea name="vendor_address"  placeholder="addrees" class="form-control" rows="2"></textarea>
 
-                                   </div>
+                        </div>
                     </div>
                     @if ($errors->has('vendor_address'))
 

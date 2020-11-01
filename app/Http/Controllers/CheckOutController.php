@@ -29,6 +29,16 @@ class CheckOutController extends Controller
 
         return view('website.checkout',$data);
     }
+
+    public function sendMessage(Request $request){
+
+        $data=array();
+        $data['message']=$request->message;
+        $data['phone']=$request->mobile_number;
+        $insert=DB::table('message')
+                    ->insert($data);
+        return redirect()->back();
+    }
     public  function checkoutStore(Request $request){
          $data['order_status'] ='new';
         $data['shipping_charge'] = $request->shipping_charge;

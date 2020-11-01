@@ -49,8 +49,10 @@ if ($i <= 10) {
 $i++;
 }
 if($i >= 10){
-$total_product = DB::table('product')->where('sku','LIKE','%'.$search_query.'%')
-    ->orWhere('product_title','LIKE','%'.$search_query.'%')->count();
+$total_product = DB::table('product')->where('status','=',1)->where(function ($query) use ($search_query){
+        return $query->where('sku','LIKE','%'.$search_query.'%')
+        ->orWhere('product_title','LIKE','%'.$search_query.'%');
+    })->count();
 $more_product=$total_product-$i;
  ?>
 

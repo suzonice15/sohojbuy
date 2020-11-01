@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('/affilates/products', 'HomeController@affilates_products');
 Route::get('/', 'HomeController@index');
 Route::get('/category/{id}', 'HomeController@category');
 Route::get('ajax_category', 'HomeController@ajax_category');
@@ -40,7 +41,7 @@ Route::get('/wishlist', 'CheckOutController@wishlist');
 Route::get('/remove-to-wishlist', 'CheckOutController@remove_wish_list');
 Route::get('/checkout', 'CheckOutController@checkout');
 Route::post('/chechout', 'CheckOutController@checkoutStore');
-
+Route::post('/sendMessage', 'CheckOutController@sendMessage');
 Route::get('/admin', 'admin\AdminController@login');
 Route::post('/login_check', 'admin\AdminController@loginCheck');
 Route::get('/sohoj-admin-login', 'admin\AdminController@sohoj_admin');
@@ -51,12 +52,15 @@ Route::get('/dashboard', 'admin\DashboardController@index');
 
 Route::get('admin/users', 'admin\AdminController@index');
 Route::get('admin/generel/users', 'admin\AdminController@generel_users');
+Route::get('admin/generel/message', 'admin\AdminController@message');
+Route::post('admin/generel/messageDelete', 'admin\AdminController@messageDelete');
 Route::get('generel/users/pagination', 'admin\AdminController@general_pagination');
 
 Route::get('admin/user/create', 'admin\AdminController@create');
 Route::post('admin/user/store', 'admin\AdminController@store');
 Route::post('admin/user/update/{id}', 'admin\AdminController@update');
 Route::get('admin/user/{id}', 'admin\AdminController@edit');
+Route::get('admin/vendor/{id}', 'admin\AdminController@editVendorProfile');
 Route::get('/admin/user/delete/{id}', 'admin\AdminController@delete');
 Route::get('logout', 'admin\AdminController@logout');
 
@@ -88,11 +92,14 @@ Route::get('admin/default/setting', 'admin\SettingController@defaultSetting');
 Route::post('admin/default/setting', 'admin\SettingController@defaultSetting');
 Route::get('admin/social/setting', 'admin\SettingController@socialSetting');
 Route::post('admin/social/setting', 'admin\SettingController@socialSetting');
+Route::get('admin/default/mailSetting', 'admin\SettingController@mailSetting');
 
+Route::post('admin/social/smtpAdd', 'admin\SettingController@smtpAdd');
 
 
 /****=============== product section    =====================  ******/
 Route::get('admin/products', 'admin\ProductController@index');
+Route::get('admin/staff-products', 'admin\ProductController@staffProduct');
 Route::post('product-urlcheck', 'admin\ProductController@urlCheck')->name('product.urlcheck');
 Route::post('product-foldercheck', 'admin\ProductController@foldercheck')->name('product.foldercheck');
 Route::get('admin/product/create', 'admin\ProductController@create');
@@ -157,6 +164,11 @@ Route::get('/admin/vendor/product/{id}', 'admin\AdminVendorController@vendor_pro
 Route::post('admin/vendor/product/update/{id}', 'admin\AdminVendorController@vendor_product_edit_update');
 Route::get('admin/vendor/pending/products', 'admin\AdminVendorController@pending');
 Route::get('admin/vendor/published/products', 'admin\AdminVendorController@published_product');
+Route::get('admin/vendor/published/Withdrow', 'admin\AdminVendorController@vandorWithdrawStatus');
+Route::get('admin/vendor/published/shop-name', 'admin\AdminVendorController@shopNameStatus');
+Route::post('admin/vendor/published/shop-name-change', 'admin\AdminVendorController@shopNameStatusChange');
+Route::get('admin/vendor/published/history', 'admin\AdminVendorController@vandorAmountHistory');
+Route::post('admin/vendor/published/WithdrowStatusChange', 'admin\AdminVendorController@WithdrowStatusChange');
 Route::get('admin/vendor/pending/products/pagination', 'admin\AdminVendorController@pending_pagination');
 Route::get('admin/vendor/published/products/pagination', 'admin\AdminVendorController@published_pagination');
 Route::get('admin/vendor/product/published/{id}', 'admin\AdminVendorController@published');
@@ -177,6 +189,7 @@ Route::post('vendor/save', 'VendorController@store');
 Route::get('vendor/login', 'VendorController@login');
 Route::get('vendor/logout', 'VendorController@logout');
 Route::post('vendor/login', 'VendorController@login_check');
+Route::get('vendor/forgetPassword', 'VendorController@forgetPassword');
 Route::post('vendor-shop-urlcheck', 'VendorController@shopUrlCheck')->name('vendor.Shopurlcheck');
 
 
@@ -196,16 +209,29 @@ Route::post('/customer/profile/update', 'CustomerController@profile_update');
 
 /****=============== vendor admin section    =====================  ******/
 Route::get('vendor/product/create', 'VendorController@create');
+Route::post('vendor/product/vendorPrice', 'VendorController@vendorPrice');
+Route::post('vendor/product/vendorPriceAdmin', 'VendorController@vendorPriceAdmin');
 Route::post('vendor/product/product_store', 'VendorController@product_store');
-Route::get('/vendor/products', 'VendorController@index');
+Route::get('/vendor/products/show', 'VendorController@index');
 Route::get('vendor/products/pagination', 'VendorController@pagination');
 Route::get('vendor/product/delete/{id}', 'VendorController@delete_product');
 Route::get('vendor/product/{id}', 'VendorController@edit');
 Route::post('/vendor/product/update/{id}', 'VendorController@update');
-Route::get('vendor/orders', 'VendorController@all_orders');
-
-
+Route::get('vendor/orders/show', 'VendorController@all_orders');
+Route::get('vendor/profile/{id}', 'VendorController@editVendorProfile');
+Route::post('vendor/profileUpdate/{id}', 'VendorController@profileUpdate');
+Route::get('vendor/bank-account', 'VendorController@bankAccount');
+Route::get('vendor/withdrow-amount', 'VendorController@vandorWithdrowAmount');
+Route::get('vendor/change-shop-name', 'VendorController@changeShopName');
+Route::get('vendor/amount-history', 'VendorController@amountHistory');
+Route::post('vendor/change-shop-name-update', 'VendorController@changeShopNameUpdate');
+Route::post('vendor/insert-withdrow-amount', 'VendorController@insertVandorWithdrowAmount');
+Route::post('/vendor/mobile_update', 'VendorController@mobile_update');
+Route::post('/vendor/bank_update', 'VendorController@bank_update');
 Route::get('/all-products', 'HomeController@allProducts');
+// Route::get('category/all-products', function () {
+//     return redirect()->route('/all-products');
+// });
 Route::get('all_ajax_products', 'HomeController@ajaxAllProducts');
 
 Route::get('/ip', 'HomeController@ip');

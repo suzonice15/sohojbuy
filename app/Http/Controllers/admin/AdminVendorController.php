@@ -42,6 +42,8 @@ public  function vendor_edit($id){
     public  function vendor_edit_update(Request $request,$id){
 
         $data['vendor_percent'] = $request->vendor_percent;
+        $data['first_verify'] = $request->first_verify;
+        $data['second_verify'] = $request->second_verify;
         DB::table('vendor')->where('vendor_id',$id)->update($data);
         return redirect('/admin/vendors');
 
@@ -64,7 +66,7 @@ public  function vendor_edit($id){
         $data['active'] = 'All vendors ';
         $data['title'] = '';
         $vendors = DB::table('vendor')->orderBy('vendor_id', 'desc')->get();
-
+        
         return view('admin.vendor.vendor_users', compact('vendors'), $data);
     }
 
@@ -133,6 +135,122 @@ public  function vendor_edit($id){
         $products = DB::table('product')->where('status','=',1)->where('vendor_id', '>',0)->orderBy('product_id', 'desc')->paginate(10);
 
         return view('admin.vendor.vendor_published_products', compact('products'), $data);
+    }
+
+    public function vandorWithdrawStatus(){
+
+        $user_id = AdminHelper::Admin_user_autherntication();
+        $url = URL::current();
+
+        if ($user_id < 1) {
+            //  return redirect('admin');
+            Redirect::to('admin')->with('redirect', $url)->send();
+
+        }
+
+        $withdrowInfo=DB::table('vendor_withdraw_amount as vwa')
+                            ->join('vendor as ven','ven.vendor_id','=','vwa.vendorId')
+                            ->select('ven.vendor_f_name','ven.vendor_l_name','ven.vendor_shop','ven.vendor_email','ven.vendor_phone','vwa.*')
+                            ->get();
+        // echo "<pre/>";
+        // print_r($withdrowInfo);
+        // exit();
+        return view('admin.vendor.vendor_withdraw_amount', compact('withdrowInfo'));                   
+    }
+
+    public function shopNameStatus(){
+
+        $user_id = AdminHelper::Admin_user_autherntication();
+        $url = URL::current();
+
+        if ($user_id < 1) {
+            //  return redirect('admin');
+            Redirect::to('admin')->with('redirect', $url)->send();
+
+        }
+
+        $requestInfo=DB::table('vendor')
+                        ->where('request_status','=','1')
+                        ->get();
+        // echo "<pre/>";
+        // print_r($withdrowInfo);
+        // exit();
+        return view('admin.vendor.vendor_shop_status', compact('requestInfo'));                   
+    }
+
+    public function shopNameStatusChange(Request $request){
+        $vendorId=$request->vendorId;
+        $prevendor=DB::table('vendor')
+                        ->where('vendor_id',$vendorId)
+                        ->first();
+        $status=$request->status;
+        if ($status==2) {
+           
+           $data=array();
+           $data['request_shop_name']=$prevendor->vendor_shop;
+           $data['request_shop_link']=$prevendor->vendor_link;
+           $data['request_status']='2';
+
+        }else{
+
+            $data=array();
+            $data['request_status']='3';
+        }
+        $statusChangest=DB::table('vendor')
+                                ->where('vendor_id',$vendorId)
+                                ->update($data);
+        return redirect('admin/vendor/published/shop-name')->with('success', 'Status Change Successfully.');
+    }
+
+    public function vandorAmountHistory(){
+
+        $user_id = AdminHelper::Admin_user_autherntication();
+        $url = URL::current();
+
+        if ($user_id < 1) {
+            //  return redirect('admin');
+            Redirect::to('admin')->with('redirect', $url)->send();
+
+        }
+
+        $historyInfo=DB::table('vendor_price_commution as vp')
+                            ->join('vendor as ven','ven.vendor_id','=','vp.vendor_id')
+                            ->join('product as p','p.product_id','=','vp.product_id')
+                            ->select('ven.vendor_f_name','ven.vendor_shop','vp.*','p.product_title')
+                            ->get();
+        return view('admin.vendor.vandorAmountHistory',compact('historyInfo'));
+    }
+
+    public function WithdrowStatusChange(Request $request){
+        $status=$request->status;
+        $id=$request->id;
+        $withdrawAmount=$request->withdrawAmount;
+        $vendorId=$request->vendorId;
+        if ($status=='3') {
+           $vendorInfo=DB::table('vendor')
+                            ->where('vendor_id',$vendorId)
+                            ->first();
+            $preAmount=$vendorInfo->amount;
+            $finalAmount=($preAmount+$withdrawAmount);
+            $data['amount']=$finalAmount;
+            $statusChange=DB::table('vendor')
+                                ->where('vendor_id',$vendorId)
+                                ->update($data);
+            $datast['status']=$status;
+            $statusChangest=DB::table('vendor_withdraw_amount')
+                                ->where('id',$id)
+                                ->update($datast);
+            return redirect('admin/vendor/published/Withdrow')
+                ->with('success', 'Refund successfully.');
+
+        }else{
+            $data['status']=$status;
+            $statusChange=DB::table('vendor_withdraw_amount')
+                                ->where('id',$id)
+                                ->update($data);
+            return redirect('admin/vendor/published/Withdrow')
+                ->with('success', 'Status update successfully.');
+        }
     }
 
     public function published_pagination(Request $request)
@@ -509,8 +627,9 @@ public  function vendor_edit($id){
         $data['folder'] = $request->folder;
         $data['product_name'] = $request->product_name;
         $data['product_price'] = $request->product_price;
-        $data['purchase_price'] = $request->purchase_price;
+       // $data['purchase_price'] = $request->purchase_price;
         $data['discount_price'] = $request->discount_price;
+        $data['vendor_price'] = $request->vendor_price;
         $data['product_summary'] = $request->product_summary;
         $data['product_description'] = $request->product_description;
         $data['product_terms'] = $request->product_terms;
